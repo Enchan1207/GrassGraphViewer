@@ -11,8 +11,16 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // コントリビューションの状態を取得
+        let dataURLString = "https://github.com/users/Enchan1207/contributions"
+        guard let contributionData = try? Data(contentsOf: URL(string: dataURLString)!) else {
+            fatalError("Oh, no!")
+        }
+        print(String(data: contributionData, encoding: .utf8))
 
-        // Do any additional setup after loading the view.
+        // XMLParser...
+        
     }
 
     override var representedObject: Any? {
