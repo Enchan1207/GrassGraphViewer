@@ -706,9 +706,8 @@
         <scene sceneID="hIz-AP-VOD">
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="GrassGraphViewer" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="m2S-Jp-Qdl">
+                    <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView wantsLayer="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nWN-FP-AAI">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
@@ -737,10 +736,10 @@
                             </scrollView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="nWN-FP-AAI" secondAttribute="bottom" id="50A-Yv-YJo"/>
-                            <constraint firstItem="nWN-FP-AAI" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="6sT-OO-UFW"/>
-                            <constraint firstAttribute="trailing" secondItem="nWN-FP-AAI" secondAttribute="trailing" id="8Us-YZ-6Gb"/>
-                            <constraint firstItem="nWN-FP-AAI" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="bqo-Tb-qmr"/>
+                            <constraint firstItem="nWN-FP-AAI" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="FyF-lD-bgs"/>
+                            <constraint firstItem="nWN-FP-AAI" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="Gj7-aZ-G3v"/>
+                            <constraint firstAttribute="trailing" secondItem="nWN-FP-AAI" secondAttribute="trailing" id="cWt-6i-I6e"/>
+                            <constraint firstAttribute="bottom" secondItem="nWN-FP-AAI" secondAttribute="bottom" id="yuq-bb-GG8"/>
                         </constraints>
                     </view>
                     <connections>
