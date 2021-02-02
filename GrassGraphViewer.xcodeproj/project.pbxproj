@@ -15,6 +15,7 @@
 		9E9FD32625C79E000053DC25 /* GrassGraphViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD32525C79E000053DC25 /* GrassGraphViewerUITests.swift */; };
 		9E9FD34B25C7BFAC0053DC25 /* CustomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD34925C7BFAC0053DC25 /* CustomItem.swift */; };
 		9E9FD34C25C7BFAC0053DC25 /* CustomItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD34A25C7BFAC0053DC25 /* CustomItem.xib */; };
+		9E9FD48A25C976430053DC25 /* WindowAppearanceExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD48925C976430053DC25 /* WindowAppearanceExt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		9E9FD32725C79E000053DC25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E9FD34925C7BFAC0053DC25 /* CustomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomItem.swift; sourceTree = "<group>"; };
 		9E9FD34A25C7BFAC0053DC25 /* CustomItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomItem.xib; sourceTree = "<group>"; };
+		9E9FD48925C976430053DC25 /* WindowAppearanceExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WindowAppearanceExt.swift; path = ../WindowAppearanceExt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			children = (
 				9E9FD30725C79DFE0053DC25 /* AppDelegate.swift */,
 				9E9FD30925C79DFE0053DC25 /* ViewController.swift */,
+				9E9FD48925C976430053DC25 /* WindowAppearanceExt.swift */,
 				9E9FD34925C7BFAC0053DC25 /* CustomItem.swift */,
 				9E9FD34A25C7BFAC0053DC25 /* CustomItem.xib */,
 				9E9FD30B25C79E000053DC25 /* Assets.xcassets */,
@@ -261,7 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E9FD30A25C79DFE0053DC25 /* ViewController.swift in Sources */,
-				9E9FD47C25C964520053DC25 /* WindowAppearanceExt.swift in Sources */,
+				9E9FD48A25C976430053DC25 /* WindowAppearanceExt.swift in Sources */,
 				9E9FD30825C79DFE0053DC25 /* AppDelegate.swift in Sources */,
 				9E9FD34B25C7BFAC0053DC25 /* CustomItem.swift in Sources */,
 			);

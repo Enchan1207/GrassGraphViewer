@@ -745,6 +745,7 @@
                     <connections>
                         <outlet property="collectionView" destination="v9F-FP-nSj" id="wxI-c8-722"/>
                         <outlet property="flowLayout" destination="BSx-M2-K0t" id="yWW-VC-7yt"/>
+                        <outlet property="scrollView" destination="nWN-FP-AAI" id="Cod-tw-2sV"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

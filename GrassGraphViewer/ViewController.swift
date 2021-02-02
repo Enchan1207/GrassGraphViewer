@@ -9,6 +9,7 @@ import Cocoa
 
 class ViewController: NSViewController {
 
+    @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var flowLayout: NSCollectionViewFlowLayout!
     
@@ -44,6 +45,24 @@ class ViewController: NSViewController {
         currentMaxContribution = contributions.max() ?? 0
         
         collectionView.reloadData()
+        
+        collectionView.backgroundColors = [.clear]
+        collectionView.enclosingScrollView?.drawsBackground = false
+        
+        self.view.wantsLayer = true
+        self.view.layer?.backgroundColor = .init(gray: 1, alpha: 0)
+        self.view.layer?.isOpaque = true
+        
+    }
+    
+    override func viewWillAppear() {
+        // ウィンドウ初期化
+        if let window = self.view.window{
+            setWindowAppearance(window: window, hiddenMode: true)
+        }else{
+            assertionFailure("Window object is nil!")
+        }
+
     }
     
     override func viewDidLayout() {
@@ -115,4 +134,3 @@ extension ViewController: NSCollectionViewDataSource {
     
     
 }
-
