@@ -109,7 +109,11 @@ enum ContributionXMLParserError: Error {
     case svgSliceFailed
 }
 
-struct ContributionInfo {
+struct ContributionInfo: Comparable {
+    static func < (lhs: ContributionInfo, rhs: ContributionInfo) -> Bool {
+        return lhs.date < rhs.date
+    }
+    
     let date: Date
     let contributionCount: UInt
 }

@@ -13,8 +13,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var flowLayout: NSCollectionViewFlowLayout!
     
-    var contributions: [Int] = []
-    var currentMaxContribution = 0
+    var contributions: [UInt] = []
+    var currentMaxContribution: UInt = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,31 +30,21 @@ class ViewController: NSViewController {
         flowLayout.minimumInteritemSpacing = 2
         flowLayout.scrollDirection = .horizontal
         
-        // TODO: XMLから読み込んだのを反映
+        // XMLから読み込んだデータを反映
         let parser = ContributionXMLParser(userName: "Enchan1207")
         do {
             try parser?.fetchContributions(completion: { (contributions) in
-                for contribution in contributions{
-                    print(contribution.contributionCount)
+                let sortedContributions = contributions.sorted()
+                for contribution in sortedContributions{
+                    self.contributions.append(contribution.contributionCount)
                 }
+                self.currentMaxContribution = sortedContributions.max(by: { (lhs, rhs) -> Bool in
+                    return lhs.contributionCount < rhs.contributionCount
+                })!.contributionCount
             })
         } catch {
             print(error)
         }
-        
-        // ダミーデータを突っ込む ここクソ実装
-        for _ in 0..<365{
-            // 一定確率で穴を開けてそれっぽくする
-            let data: Int
-            if(Int.random(in: 0..<3) == 0){
-                data = 0
-            }else{
-                data = Int.random(in: 0..<5)
-            }
-            
-            contributions.append(data)
-        }
-        currentMaxContribution = contributions.max() ?? 0
         
         collectionView.reloadData()
         
@@ -70,7 +60,7 @@ class ViewController: NSViewController {
     override func viewWillAppear() {
         // ウィンドウ初期化
         if let window = self.view.window{
-            setWindowAppearance(window: window, hiddenMode: true)
+            setWindowAppearance(window: window, hiddenMode: false)
         }else{
             assertionFailure("Window object is nil!")
         }
