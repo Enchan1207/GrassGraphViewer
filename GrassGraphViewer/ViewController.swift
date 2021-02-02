@@ -30,6 +30,18 @@ class ViewController: NSViewController {
         flowLayout.minimumInteritemSpacing = 2
         flowLayout.scrollDirection = .horizontal
         
+        // TODO: XMLから読み込んだのを反映
+        let parser = ContributionXMLParser(userName: "Enchan1207")
+        do {
+            try parser?.fetchContributions(completion: { (contributions) in
+                for contribution in contributions{
+                    print(contribution.contributionCount)
+                }
+            })
+        } catch {
+            print(error)
+        }
+        
         // ダミーデータを突っ込む ここクソ実装
         for _ in 0..<365{
             // 一定確率で穴を開けてそれっぽくする
@@ -46,9 +58,9 @@ class ViewController: NSViewController {
         
         collectionView.reloadData()
         
+        // collectionViewを透明に
         collectionView.backgroundColors = [.clear]
         collectionView.enclosingScrollView?.drawsBackground = false
-        
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = .init(gray: 1, alpha: 0)
         self.view.layer?.isOpaque = true

@@ -10,7 +10,7 @@ import Foundation
 
 extension ViewController {
     // ウィンドウ初期化
-    func initWindowAppearance(window: NSWindow){
+    func setWindowAppearance(window: NSWindow, hiddenMode: Bool){
         // 背景の透明化
         window.backgroundColor = .init(white: 1, alpha: 0)
         window.isOpaque = false
