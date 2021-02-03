@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="tg7-oh-DWo">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Preferences-->
+        <scene sceneID="2Wy-pX-vdD">
+            <objects>
+                <viewController title="Preferences" id="tg7-oh-DWo" customClass="PreferencesViewController" customModule="GrassGraphViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="bvC-Db-uqc">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BhQ-Rk-Rsg">
+                                <rect key="frame" x="8" y="267" width="434" height="23"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="System Preferences" id="vgF-se-i1r">
+                                    <font key="font" size="20" name="HelveticaNeue"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="BhQ-Rk-Rsg" firstAttribute="top" secondItem="bvC-Db-uqc" secondAttribute="top" constant="10" id="Xqt-J4-UEB"/>
+                            <constraint firstAttribute="trailing" secondItem="BhQ-Rk-Rsg" secondAttribute="trailing" constant="10" id="pTN-OK-hB4"/>
+                            <constraint firstItem="BhQ-Rk-Rsg" firstAttribute="leading" secondItem="bvC-Db-uqc" secondAttribute="leading" constant="10" id="wKp-0b-907"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="dSW-c8-qR1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="603" y="89"/>
+        </scene>
+    </scenes>
+</document>

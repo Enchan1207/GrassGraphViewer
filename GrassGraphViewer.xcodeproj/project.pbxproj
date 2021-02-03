@@ -17,6 +17,8 @@
 		9E9FD34C25C7BFAC0053DC25 /* CustomItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD34A25C7BFAC0053DC25 /* CustomItem.xib */; };
 		9E9FD49E25C982E80053DC25 /* ContributionXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD49D25C982E80053DC25 /* ContributionXMLParser.swift */; };
 		9E9FD4A325C982EF0053DC25 /* WindowAppearanceExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4A225C982EF0053DC25 /* WindowAppearanceExt.swift */; };
+		9E9FD4AE25CAC6600053DC25 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD4AD25CAC6600053DC25 /* Preferences.storyboard */; };
+		9E9FD4B325CAD5D90053DC25 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4B225CAD5D90053DC25 /* PreferencesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,8 @@
 		9E9FD34A25C7BFAC0053DC25 /* CustomItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomItem.xib; sourceTree = "<group>"; };
 		9E9FD49D25C982E80053DC25 /* ContributionXMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContributionXMLParser.swift; sourceTree = "<group>"; };
 		9E9FD4A225C982EF0053DC25 /* WindowAppearanceExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowAppearanceExt.swift; sourceTree = "<group>"; };
+		9E9FD4AD25CAC6600053DC25 /* Preferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
+		9E9FD4B225CAD5D90053DC25 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +116,8 @@
 				9E9FD34A25C7BFAC0053DC25 /* CustomItem.xib */,
 				9E9FD30B25C79E000053DC25 /* Assets.xcassets */,
 				9E9FD30D25C79E000053DC25 /* Main.storyboard */,
+				9E9FD4AD25CAC6600053DC25 /* Preferences.storyboard */,
+				9E9FD4B225CAD5D90053DC25 /* PreferencesViewController.swift */,
 				9E9FD31025C79E000053DC25 /* Info.plist */,
 				9E9FD31125C79E000053DC25 /* GrassGraphViewer.entitlements */,
 			);
@@ -242,6 +248,7 @@
 				9E9FD30C25C79E000053DC25 /* Assets.xcassets in Resources */,
 				9E9FD34C25C7BFAC0053DC25 /* CustomItem.xib in Resources */,
 				9E9FD30F25C79E000053DC25 /* Main.storyboard in Resources */,
+				9E9FD4AE25CAC6600053DC25 /* Preferences.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +278,7 @@
 				9E9FD30A25C79DFE0053DC25 /* ViewController.swift in Sources */,
 				9E9FD30825C79DFE0053DC25 /* AppDelegate.swift in Sources */,
 				9E9FD34B25C7BFAC0053DC25 /* CustomItem.swift in Sources */,
+				9E9FD4B325CAD5D90053DC25 /* PreferencesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
