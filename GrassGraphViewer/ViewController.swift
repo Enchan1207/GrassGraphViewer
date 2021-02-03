@@ -25,7 +25,9 @@ class ViewController: NSViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
 
-        flowLayout.sectionInset = .init(top: 10, left: 10, bottom: 10, right: 10)
+        collectionView.backgroundColors = [.clear]
+        collectionView.enclosingScrollView?.drawsBackground = false
+        
         flowLayout.minimumLineSpacing = 2
         flowLayout.minimumInteritemSpacing = 2
         flowLayout.scrollDirection = .horizontal
@@ -42,18 +44,11 @@ class ViewController: NSViewController {
                     return lhs.contributionCount < rhs.contributionCount
                 })!.contributionCount
             })
+            collectionView.reloadData()
         } catch {
-            print(error)
+            print(error.localizedDescription)
+            self.contributions = .init(repeating: 0, count: 365)
         }
-        
-        collectionView.reloadData()
-        
-        // collectionViewを透明に
-        collectionView.backgroundColors = [.clear]
-        collectionView.enclosingScrollView?.drawsBackground = false
-        self.view.wantsLayer = true
-        self.view.layer?.backgroundColor = .init(gray: 1, alpha: 0)
-        self.view.layer?.isOpaque = true
         
     }
     
@@ -64,71 +59,56 @@ class ViewController: NSViewController {
         }else{
             assertionFailure("Window object is nil!")
         }
-
+        flowLayout.itemSize = NSSize(width: 11, height: 11)
     }
-    
-    override func viewDidLayout() {
-        updateCellSize()
-    }
-    
-    // セルサイズ更新
-    func updateCellSize(){
-        // 親ビューのフレームを取得
-        let collectionViewFrame = self.view.frame
-        
-        // collectionviewのマージンを取得
-        let collectionViewInsets = (collectionView.collectionViewLayout as? NSCollectionViewFlowLayout)?.sectionInset
-        
-        // 横軸、縦軸に置きたいアイテム数を設定
-        let numberOfItemsInColumn: CGFloat = 5
-        let numberOfItemsInRow: CGFloat = 7
-        
-        // アイテム幅を計算
-        let widthSpacings = flowLayout.minimumLineSpacing * (numberOfItemsInColumn - 1)
-        let heightSpacings = flowLayout.minimumInteritemSpacing * (numberOfItemsInRow - 1)
-        let verticalInsets = (collectionViewInsets?.top ?? 0) + (collectionViewInsets?.bottom ?? 0)
-        let horizontalInsets = (collectionViewInsets?.left ?? 0) + (collectionViewInsets?.right ?? 0)
-        
-        let itemWidth = (collectionViewFrame.width - widthSpacings - horizontalInsets) / numberOfItemsInColumn
-        let itemHeight = (collectionViewFrame.height - heightSpacings - verticalInsets) / numberOfItemsInRow
-        
-        flowLayout.itemSize = NSSize(width: itemHeight, height: itemHeight)
-    }
-
-    override var representedObject: Any? {
-        didSet {
-            // Update the view, if already loaded.
-        }
-    }
-}
-
-extension ViewController: NSCollectionViewDelegate {
-    
 }
 
 extension ViewController: NSCollectionViewDataSource {
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        let columns = 53
-        return columns * 7
+        return self.contributions.count
     }
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         
+        let contribution = self.contributions[indexPath[1]]
+        
+        // セル作って
         let item = collectionView.makeItem(withIdentifier: .init("item"), for: indexPath) as! CustomItem
         
-        // 生える草の色を設定
-        if(indexPath[1] < self.contributions.count && self.contributions[indexPath[1]] > 0){
-            // 0.0~1.0 コミットするほど0に近づく
-            let contributionRate = 1.0 - Double(self.contributions[indexPath[1]]) / Double(self.currentMaxContribution)
-            
-            // 0.3~0.7に変換
-            let brightness = contributionRate * 0.4 + 0.3
-            
-            item.color = .init(hue: 0.33, saturation: 0.8, brightness: CGFloat(brightness), alpha: 1)
-        }else{
-            item.color = .lightGray
+        item.contributionCount = contribution
+        
+        // 色指定
+        if #available(OSX 10.13, *) {
+            item.borderColor = NSColor(named: "GrassColor/Border")
+        } else {
+            item.borderColor = .systemGray
         }
+        
+        // 最大コミット数に占めるコミット数の割合を計算
+        let contributionRate = Double(contribution) / Double(self.currentMaxContribution)
+        
+        // 5段階に分けて色設定
+        let itemColorName: String
+        switch contributionRate {
+        case let n where n > 0 && n < 0.2:
+            itemColorName = "GrassColor/Level1"
+        case 0.2..<0.4:
+            itemColorName = "GrassColor/Level2"
+        case 0.4..<0.8:
+            itemColorName = "GrassColor/Level3"
+        case 0.8..<1.0:
+            itemColorName = "GrassColor/Level4"
+        default:
+            itemColorName = "GrassColor/Background"
+        }
+        if #available(OSX 10.13, *) {
+            item.backgroundColor = NSColor(named: itemColorName)
+        } else {
+            // TODO: 対応してなければHSBでそれっぽいのを作る
+            item.backgroundColor = .green
+        }
+        
         return item
     }
     

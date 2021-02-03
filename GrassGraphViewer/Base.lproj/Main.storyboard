@@ -707,16 +707,16 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="GrassGraphViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="724" height="279"/>
                         <subviews>
-                            <scrollView wantsLayer="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nWN-FP-AAI">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                                <clipView key="contentView" id="97k-BV-8Zp">
-                                    <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                            <scrollView wantsLayer="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nWN-FP-AAI">
+                                <rect key="frame" x="0.0" y="95" width="724" height="89"/>
+                                <clipView key="contentView" copiesOnScroll="NO" id="97k-BV-8Zp">
+                                    <rect key="frame" x="0.0" y="0.0" width="724" height="89"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView id="v9F-FP-nSj">
-                                            <rect key="frame" x="0.0" y="0.0" width="480" height="158"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="724" height="89"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="BSx-M2-K0t">
                                                 <size key="itemSize" width="50" height="50"/>
@@ -725,21 +725,23 @@
                                         </collectionView>
                                     </subviews>
                                 </clipView>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="89" id="5hV-Jt-kKX"/>
+                                </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="Ljq-vM-LV9">
                                     <rect key="frame" x="-100" y="-100" width="233" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="zlM-hB-qL7">
-                                    <rect key="frame" x="-100" y="-100" width="15" height="143"/>
+                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="zlM-hB-qL7">
+                                    <rect key="frame" x="708" y="0.0" width="16" height="89"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="nWN-FP-AAI" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="FyF-lD-bgs"/>
-                            <constraint firstItem="nWN-FP-AAI" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="Gj7-aZ-G3v"/>
-                            <constraint firstAttribute="trailing" secondItem="nWN-FP-AAI" secondAttribute="trailing" id="cWt-6i-I6e"/>
-                            <constraint firstAttribute="bottom" secondItem="nWN-FP-AAI" secondAttribute="bottom" id="yuq-bb-GG8"/>
+                            <constraint firstItem="nWN-FP-AAI" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="CTb-sS-aop"/>
+                            <constraint firstItem="nWN-FP-AAI" firstAttribute="width" secondItem="m2S-Jp-Qdl" secondAttribute="width" id="amB-in-B4f"/>
+                            <constraint firstItem="nWN-FP-AAI" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="wAh-Mm-GzI"/>
                         </constraints>
                     </view>
                     <connections>
@@ -750,7 +752,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="197" y="659.5"/>
         </scene>
     </scenes>
 </document>
