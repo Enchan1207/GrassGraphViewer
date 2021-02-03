@@ -19,6 +19,7 @@
 		9E9FD4A325C982EF0053DC25 /* WindowAppearanceExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4A225C982EF0053DC25 /* WindowAppearanceExt.swift */; };
 		9E9FD4AE25CAC6600053DC25 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD4AD25CAC6600053DC25 /* Preferences.storyboard */; };
 		9E9FD4B325CAD5D90053DC25 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4B225CAD5D90053DC25 /* PreferencesViewController.swift */; };
+		9E9FD4C025CADCBF0053DC25 /* ObservationKeyExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4BF25CADCBF0053DC25 /* ObservationKeyExt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		9E9FD4A225C982EF0053DC25 /* WindowAppearanceExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowAppearanceExt.swift; sourceTree = "<group>"; };
 		9E9FD4AD25CAC6600053DC25 /* Preferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
 		9E9FD4B225CAD5D90053DC25 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		9E9FD4BF25CADCBF0053DC25 /* ObservationKeyExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservationKeyExt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 			children = (
 				9E9FD30725C79DFE0053DC25 /* AppDelegate.swift */,
 				9E9FD30925C79DFE0053DC25 /* ViewController.swift */,
+				9E9FD4BF25CADCBF0053DC25 /* ObservationKeyExt.swift */,
 				9E9FD4A225C982EF0053DC25 /* WindowAppearanceExt.swift */,
 				9E9FD49D25C982E80053DC25 /* ContributionXMLParser.swift */,
 				9E9FD34925C7BFAC0053DC25 /* CustomItem.swift */,
@@ -279,6 +282,7 @@
 				9E9FD30825C79DFE0053DC25 /* AppDelegate.swift in Sources */,
 				9E9FD34B25C7BFAC0053DC25 /* CustomItem.swift in Sources */,
 				9E9FD4B325CAD5D90053DC25 /* PreferencesViewController.swift in Sources */,
+				9E9FD4C025CADCBF0053DC25 /* ObservationKeyExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

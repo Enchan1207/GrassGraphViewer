@@ -17,6 +17,8 @@ class ViewController: NSViewController {
     var contributions: [UInt] = []
     var currentMaxContribution: UInt = 0
     
+    let appDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,6 +58,20 @@ class ViewController: NSViewController {
             print(error.localizedDescription)
             self.contributions = .init(repeating: 0, count: 365)
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(preferenceDidChange(_:)), name: .kPreferenceUpdatedNotification, object: nil)
+    }
+    
+    @objc func preferenceDidChange(_ sender: Any?){
+        // 送られてきたオブジェクトをキャストして
+        guard let notification = sender as? NSNotification else {return}
+        
+        // 値を当てる
+        let windowLevelInt = notification.object as! Int32
+        guard let windowLevelKey = CGWindowLevelKey(rawValue: windowLevelInt) else{return}
+        
+        self.view.window?.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(windowLevelKey)))
+        
     }
     
     override func viewWillAppear() {

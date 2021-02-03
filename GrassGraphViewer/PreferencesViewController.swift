@@ -8,7 +8,9 @@
 import Cocoa
 
 class PreferencesViewController: NSViewController {
-
+    
+    let appDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -18,6 +20,7 @@ class PreferencesViewController: NSViewController {
         print("Ohhhh Fuck!!")
         
         // 他のウィンドウにアクセスできないもんかね
+        NotificationCenter.default.post(name: .kPreferenceUpdatedNotification, object: CGWindowLevelKey.desktopIconWindow.rawValue)
         
     }
     

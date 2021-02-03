@@ -9,6 +9,9 @@ import Cocoa
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
+    
+    // appdelegateで共有変数持たすのはクソ実装がすぎる NSUserDefaults+KVOで何とかならんの?
+    var windowLevel: CGWindowLevelKey?
 
     // ステータスバーに置くボタン
     let statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
