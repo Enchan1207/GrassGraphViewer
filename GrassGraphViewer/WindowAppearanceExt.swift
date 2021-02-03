@@ -16,7 +16,8 @@ extension ViewController {
         window.setFrame(NSRect(origin: window.frame.origin, size: self.view.frame.size), display: true)
         
         // 背景の透明化
-        window.backgroundColor = .init(white: 0, alpha: 0.6)
+        window.backgroundColor = .init(white: 0, alpha: 0)
+        window.hasShadow = false
         window.isOpaque = false
         
         let windowLevelKey: CGWindowLevelKey

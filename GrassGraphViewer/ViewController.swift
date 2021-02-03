@@ -9,6 +9,7 @@ import Cocoa
 
 class ViewController: NSViewController {
 
+    @IBOutlet weak var backgroundView: NSView!
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var flowLayout: NSCollectionViewFlowLayout!
@@ -26,10 +27,17 @@ class ViewController: NSViewController {
 
         collectionView.backgroundColors = [.clear]
         collectionView.enclosingScrollView?.drawsBackground = false
+        collectionView.enclosingScrollView?.hasVerticalScroller = false
+        collectionView.enclosingScrollView?.hasHorizontalScroller = false
         
         flowLayout.minimumLineSpacing = 2
         flowLayout.minimumInteritemSpacing = 2
         flowLayout.scrollDirection = .horizontal
+        flowLayout.itemSize = NSSize(width: 11, height: 11)
+        
+        // backgroundView設定
+        backgroundView.wantsLayer = true
+        backgroundView.layer?.backgroundColor = .init(gray: 0, alpha: 0.3)
         
         // XMLから読み込んだデータを反映
         let parser = ContributionXMLParser(userName: "Enchan1207")
@@ -57,7 +65,11 @@ class ViewController: NSViewController {
         }else{
             assertionFailure("Window object is nil!")
         }
-        flowLayout.itemSize = NSSize(width: 11, height: 11)
+    }
+    
+    override func viewDidAppear() {
+        let contentWidth = flowLayout.collectionViewContentSize.width
+        collectionView.scroll(NSPoint(x: contentWidth, y: 0))
     }
 }
 
