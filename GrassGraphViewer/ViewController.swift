@@ -22,7 +22,6 @@ class ViewController: NSViewController {
         // collectionView設定
         let xib = NSNib(nibNamed: "CustomItem", bundle: nil)
         collectionView.register(xib, forItemWithIdentifier: .init("item"))
-        collectionView.delegate = self
         collectionView.dataSource = self
 
         collectionView.backgroundColors = [.clear]
@@ -49,7 +48,6 @@ class ViewController: NSViewController {
             print(error.localizedDescription)
             self.contributions = .init(repeating: 0, count: 365)
         }
-        
     }
     
     override func viewWillAppear() {
