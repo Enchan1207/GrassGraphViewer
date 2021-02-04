@@ -14,6 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        
         // ボタンに画像を設定
         if let statusBarButton = statusBarItem.button{
             statusBarButton.image = NSImage(named: "MenubarIcon")

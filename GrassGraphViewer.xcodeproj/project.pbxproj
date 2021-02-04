@@ -10,7 +10,7 @@
 		9E9FD30825C79DFE0053DC25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD30725C79DFE0053DC25 /* AppDelegate.swift */; };
 		9E9FD30A25C79DFE0053DC25 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD30925C79DFE0053DC25 /* ViewController.swift */; };
 		9E9FD30C25C79E000053DC25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD30B25C79E000053DC25 /* Assets.xcassets */; };
-		9E9FD30F25C79E000053DC25 /* ContributionGraph.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD30D25C79E000053DC25 /* ContributionGraph.storyboard */; };
+		9E9FD30F25C79E000053DC25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD30D25C79E000053DC25 /* Main.storyboard */; };
 		9E9FD31B25C79E000053DC25 /* GrassGraphViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD31A25C79E000053DC25 /* GrassGraphViewerTests.swift */; };
 		9E9FD32625C79E000053DC25 /* GrassGraphViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD32525C79E000053DC25 /* GrassGraphViewerUITests.swift */; };
 		9E9FD34B25C7BFAC0053DC25 /* CustomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD34925C7BFAC0053DC25 /* CustomItem.swift */; };
@@ -19,8 +19,9 @@
 		9E9FD4A325C982EF0053DC25 /* WindowAppearanceExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4A225C982EF0053DC25 /* WindowAppearanceExt.swift */; };
 		9E9FD4AE25CAC6600053DC25 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD4AD25CAC6600053DC25 /* Preferences.storyboard */; };
 		9E9FD4B325CAD5D90053DC25 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4B225CAD5D90053DC25 /* PreferencesViewController.swift */; };
-		9E9FD4C025CADCBF0053DC25 /* ObservationKeyExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4BF25CADCBF0053DC25 /* ObservationKeyExt.swift */; };
+		9E9FD4C025CADCBF0053DC25 /* NotificationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4BF25CADCBF0053DC25 /* NotificationKeys.swift */; };
 		9E9FD50725CBBAFE0053DC25 /* ContributionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD50625CBBAFE0053DC25 /* ContributionInfo.swift */; };
+		9E9FD52725CBDF9C0053DC25 /* ContributionGraph.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD52625CBDF9C0053DC25 /* ContributionGraph.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +46,7 @@
 		9E9FD30725C79DFE0053DC25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E9FD30925C79DFE0053DC25 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9E9FD30B25C79E000053DC25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		9E9FD30E25C79E000053DC25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ContributionGraph.storyboard; sourceTree = "<group>"; };
+		9E9FD30E25C79E000053DC25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E9FD31025C79E000053DC25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E9FD31125C79E000053DC25 /* GrassGraphViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GrassGraphViewer.entitlements; sourceTree = "<group>"; };
 		9E9FD31625C79E000053DC25 /* GrassGraphViewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrassGraphViewerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,8 +61,9 @@
 		9E9FD4A225C982EF0053DC25 /* WindowAppearanceExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowAppearanceExt.swift; sourceTree = "<group>"; };
 		9E9FD4AD25CAC6600053DC25 /* Preferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
 		9E9FD4B225CAD5D90053DC25 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
-		9E9FD4BF25CADCBF0053DC25 /* ObservationKeyExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservationKeyExt.swift; sourceTree = "<group>"; };
+		9E9FD4BF25CADCBF0053DC25 /* NotificationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationKeys.swift; sourceTree = "<group>"; };
 		9E9FD50625CBBAFE0053DC25 /* ContributionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionInfo.swift; sourceTree = "<group>"; };
+		9E9FD52625CBDF9C0053DC25 /* ContributionGraph.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ContributionGraph.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,9 +115,10 @@
 			isa = PBXGroup;
 			children = (
 				9E9FD30725C79DFE0053DC25 /* AppDelegate.swift */,
+				9E9FD30D25C79E000053DC25 /* Main.storyboard */,
 				9E9FD4D925CB7C740053DC25 /* ContributionView */,
 				9E9FD4CA25CB5AF70053DC25 /* PreferencesView */,
-				9E9FD4BF25CADCBF0053DC25 /* ObservationKeyExt.swift */,
+				9E9FD4BF25CADCBF0053DC25 /* NotificationKeys.swift */,
 				9E9FD49D25C982E80053DC25 /* ContributionXMLParser.swift */,
 				9E9FD50625CBBAFE0053DC25 /* ContributionInfo.swift */,
 				9E9FD30B25C79E000053DC25 /* Assets.xcassets */,
@@ -159,7 +162,7 @@
 				9E9FD4A225C982EF0053DC25 /* WindowAppearanceExt.swift */,
 				9E9FD34925C7BFAC0053DC25 /* CustomItem.swift */,
 				9E9FD34A25C7BFAC0053DC25 /* CustomItem.xib */,
-				9E9FD30D25C79E000053DC25 /* ContributionGraph.storyboard */,
+				9E9FD52625CBDF9C0053DC25 /* ContributionGraph.storyboard */,
 			);
 			path = ContributionView;
 			sourceTree = "<group>";
@@ -267,9 +270,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E9FD52725CBDF9C0053DC25 /* ContributionGraph.storyboard in Resources */,
 				9E9FD30C25C79E000053DC25 /* Assets.xcassets in Resources */,
 				9E9FD34C25C7BFAC0053DC25 /* CustomItem.xib in Resources */,
-				9E9FD30F25C79E000053DC25 /* ContributionGraph.storyboard in Resources */,
+				9E9FD30F25C79E000053DC25 /* Main.storyboard in Resources */,
 				9E9FD4AE25CAC6600053DC25 /* Preferences.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,7 +306,7 @@
 				9E9FD34B25C7BFAC0053DC25 /* CustomItem.swift in Sources */,
 				9E9FD50725CBBAFE0053DC25 /* ContributionInfo.swift in Sources */,
 				9E9FD4B325CAD5D90053DC25 /* PreferencesViewController.swift in Sources */,
-				9E9FD4C025CADCBF0053DC25 /* ObservationKeyExt.swift in Sources */,
+				9E9FD4C025CADCBF0053DC25 /* NotificationKeys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,12 +342,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		9E9FD30D25C79E000053DC25 /* ContributionGraph.storyboard */ = {
+		9E9FD30D25C79E000053DC25 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				9E9FD30E25C79E000053DC25 /* Base */,
 			);
-			name = ContributionGraph.storyboard;
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
