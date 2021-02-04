@@ -23,8 +23,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let menu = NSMenu()
 
         menu.addItem(NSMenuItem(title: "環境設定", action: #selector(openPreferences), keyEquivalent: ","))
-        menu.addItem(NSMenuItem.separator()) // セパレータ
-        menu.addItem(NSMenuItem(title: "終了", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")) // 終了ボタン
+        menu.addItem(NSMenuItem.separator())
+        menu.addItem(NSMenuItem(title: "Userdefaultsを初期化して終了", action: #selector(initUserDefaults), keyEquivalent: ""))
+        menu.addItem(NSMenuItem(title: "終了", action: #selector(NSApplication.shared.terminate(_:)), keyEquivalent: "q"))
         statusBarItem.menu = menu
         
     }
@@ -42,6 +43,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         windowVC.showWindow(self)
 //        windowVC.close()
         
+    }
+    
+    @objc func initUserDefaults(){
+        let userdefaults = UserDefaults.standard
+        
+        let targetKeys = ["UIEnabled", "UserName", "LastFetched"]
+        for key in targetKeys{
+            userdefaults.removeObject(forKey: key)
+        }
+        
+        NSApplication.shared.terminate(nil)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

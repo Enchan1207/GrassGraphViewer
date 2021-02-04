@@ -717,7 +717,7 @@
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" contentType="username" translatesAutoresizingMaskIntoConstraints="NO" id="Jmh-IS-bf1">
                                                 <rect key="frame" x="38" y="66" width="134" height="16"/>
-                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Enchan1207" usesSingleLineMode="YES" id="8ru-xz-wao">
+                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Username" usesSingleLineMode="YES" id="8ru-xz-wao">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -736,7 +736,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="o9S-mv-CIY"/>
                                                 </constraints>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="122" id="ze5-dL-FTo">
+                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="0" id="ze5-dL-FTo">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
