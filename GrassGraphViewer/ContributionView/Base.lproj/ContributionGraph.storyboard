@@ -731,7 +731,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="tF8-BI-4wC"/>
                                                 </constraints>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" title="At 2021-02-03" id="wNi-pd-BdI">
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="At" id="wNi-pd-BdI">
                                                     <font key="font" usesAppearanceFont="YES"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -739,7 +739,7 @@
                                             </textField>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dmL-dF-DIE">
                                                 <rect key="frame" x="0.0" y="15" width="180" height="59"/>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="12" id="ze5-dL-FTo">
+                                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="0" id="ze5-dL-FTo">
                                                     <font key="font" metaFont="system" size="50"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -807,6 +807,8 @@
                         <outlet property="backgroundView" destination="0X9-V9-Wkn" id="LD4-6J-WJh"/>
                         <outlet property="collectionView" destination="v9F-FP-nSj" id="wxI-c8-722"/>
                         <outlet property="flowLayout" destination="BSx-M2-K0t" id="yWW-VC-7yt"/>
+                        <outlet property="lastContributionCountLabel" destination="dmL-dF-DIE" id="XYQ-cJ-fhY"/>
+                        <outlet property="lastContributionDateLabel" destination="xDq-T5-ORG" id="40f-wV-e0s"/>
                         <outlet property="scrollView" destination="nWN-FP-AAI" id="Cod-tw-2sV"/>
                     </connections>
                 </viewController>

@@ -12,7 +12,6 @@ extension ViewController {
     // ウィンドウ初期化
     func setWindowAppearance(window: NSWindow?, hiddenMode: Bool){
         guard let window = window else {
-            print("Window object is nil!")
             return
         }
         
@@ -22,10 +21,21 @@ extension ViewController {
         
         window.title = "GrassGraphViewer"
         
-        // 背景の透明化
-        window.backgroundColor = .init(white: 0, alpha: 0)
+        // 背景設定
         window.hasShadow = false
         window.isOpaque = false
+        
+        let backgroundViewColor: NSColor
+        if(!hiddenMode){
+            if #available(OSX 10.13, *) {
+                backgroundViewColor = NSColor(named: "Background")!
+            } else {
+                backgroundViewColor = .init(white: 0, alpha: 0.3)
+            }
+        }else{
+            backgroundViewColor = .clear
+        }
+        window.backgroundColor = backgroundViewColor
         
         // ウィンドウ移動設定
         window.isMovable = !hiddenMode

@@ -14,7 +14,10 @@ class ViewController: NSViewController {
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var flowLayout: NSCollectionViewFlowLayout!
     
-    var contributions: [UInt] = []
+    @IBOutlet weak var lastContributionCountLabel: NSTextField!
+    @IBOutlet weak var lastContributionDateLabel: NSTextField!
+    
+    var contributionCounts: [UInt] = []
     var currentMaxContribution: UInt = 0
     
     let appDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
@@ -37,32 +40,39 @@ class ViewController: NSViewController {
         flowLayout.scrollDirection = .horizontal
         flowLayout.itemSize = NSSize(width: 11, height: 11)
         
-        // backgroundView設定
-        backgroundView.wantsLayer = true
-        backgroundView.layer?.backgroundColor = .init(gray: 0, alpha: 0)
-        
         // XMLから読み込んだデータを反映
         let parser = ContributionXMLParser(userName: "Enchan1207")
         do {
             try parser?.fetchContributions(completion: { (contributions) in
+                // 草を生やして
                 let sortedContributions = contributions.sorted()
                 for contribution in sortedContributions{
-                    self.contributions.append(contribution.contributionCount)
+                    self.contributionCounts.append(contribution.contributionCount)
                 }
                 self.currentMaxContribution = sortedContributions.max(by: { (lhs, rhs) -> Bool in
                     return lhs.contributionCount < rhs.contributionCount
                 })!.contributionCount
+                
+                // ラベルに反映
+                if let lastContribution = contributions.last{
+                    self.lastContributionCountLabel.stringValue = "\( lastContribution.contributionCount)"
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "y/M/d"
+                    self.lastContributionDateLabel.stringValue = "At: \(formatter.string(from: lastContribution.date))"
+                }
+                
             })
             collectionView.reloadData()
         } catch {
             print(error.localizedDescription)
-            self.contributions = .init(repeating: 0, count: 365)
+            self.contributionCounts = .init(repeating: 0, count: 365)
         }
         
         // 通知センターから設定変更通知を受け取る
         NotificationCenter.default.addObserver(self, selector: #selector(onUserInteractionModeChanged(_:)), name: .kUserInteractionEnabledNotification, object: nil)
     }
     
+    // UserIntearctionEnabledの値が変わったとき
     @objc func onUserInteractionModeChanged(_ sender: Any?){
         // 送られてきたオブジェクトをキャストして
         guard let notification = sender as? NSNotification else {return}
@@ -75,11 +85,12 @@ class ViewController: NSViewController {
     }
     
     override func viewWillAppear() {
-        // ウィンドウ初期化
+        // ウィンドウの外観を初期化
         setWindowAppearance(window: self.view.window, hiddenMode: false)
     }
     
     override func viewDidAppear() {
+        // 自動で端までスクロールさせる
         let contentWidth = flowLayout.collectionViewContentSize.width
         collectionView.scroll(NSPoint(x: contentWidth, y: 0))
     }
@@ -88,12 +99,12 @@ class ViewController: NSViewController {
 extension ViewController: NSCollectionViewDataSource {
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.contributions.count
+        return self.contributionCounts.count
     }
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         
-        let contribution = self.contributions[indexPath[1]]
+        let contribution = self.contributionCounts[indexPath[1]]
         
         // セル作って
         let item = collectionView.makeItem(withIdentifier: .init("item"), for: indexPath) as! CustomItem
@@ -133,6 +144,4 @@ extension ViewController: NSCollectionViewDataSource {
         
         return item
     }
-    
-    
 }
