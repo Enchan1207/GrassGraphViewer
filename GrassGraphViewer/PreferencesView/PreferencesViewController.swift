@@ -18,6 +18,7 @@ class PreferencesViewController: NSViewController {
     @IBOutlet weak var usernameField: NSTextField!
     @IBOutlet weak var fetchStatLabel: NSTextField!
     @IBOutlet weak var loadCircle: NSProgressIndicator!
+    @IBOutlet weak var applyButton: NSButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,7 @@ class PreferencesViewController: NSViewController {
         self.currentUIEnabled = userdefaults.bool(forKey: "UIEnabled")
         
         loadCircle.isHidden = true
+
     }
     
     override func viewWillAppear() {
@@ -63,11 +65,17 @@ class PreferencesViewController: NSViewController {
             loadCircle.stopAnimation(nil)
             loadCircle.isHidden = true
             
+            // FetchDateを更新し
             let formatter = DateFormatter()
             formatter.dateFormat = "y/M/d hh:mm:ss"
             fetchStatLabel.stringValue = "Last Fetched: \(formatter.string(from: Date()))"
             
+            // NotificationCenterから通知をぶち投げて
             currentUserName = newName
+            NotificationCenter.default.post(name: .kUserNameChangedNotification, object: currentUserName)
+            
+            // UDに反映
+            userdefaults.setValue(currentUserName, forKey: "UserName")
         }
     }
     
@@ -77,18 +85,21 @@ class PreferencesViewController: NSViewController {
 
         // NotificationCenterから通知をぶち投げる
         NotificationCenter.default.post(name: .kUserInteractionEnabledNotification, object: currentUIEnabled)
+        
+        // UDに反映
+        userdefaults.setValue(currentUIEnabled, forKey: "UIEnabled")
     }
     
     @IBAction func onTapApplyChanges(_ sender: Any) {
-        updateStoredData()
+        updateAllStoredData()
     }
     
     deinit {
-        updateStoredData()
+        updateAllStoredData()
     }
     
     // 変更をUDに反映
-    func updateStoredData(){
+    func updateAllStoredData(){
         userdefaults.setValue(currentUserName, forKey: "UserName")
         userdefaults.setValue(currentUIEnabled, forKey: "UIEnabled")
     }

@@ -17,10 +17,13 @@ class ViewController: NSViewController {
     @IBOutlet weak var lastContributionCountLabel: NSTextField!
     @IBOutlet weak var lastContributionDateLabel: NSTextField!
     
-    var contributionCounts: [UInt] = []
-    var currentMaxContribution: UInt = 0
+    private var contributions: [ContributionInfo] = []
+    private var currentMaxContribution: ContributionInfo?
     
-    let appDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
+    private let userdefaults = UserDefaults.standard
+    
+    private var currentUserName: String?
+    private var currentUIEnabled: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,53 +43,73 @@ class ViewController: NSViewController {
         flowLayout.scrollDirection = .horizontal
         flowLayout.itemSize = NSSize(width: 11, height: 11)
         
-        // XMLから読み込んだデータを反映
-        let parser = ContributionXMLParser(userName: "Enchan1207")
-        do {
-            try parser?.fetchContributions(completion: { (contributions) in
-                // 草を生やして
-                let sortedContributions = contributions.sorted()
-                for contribution in sortedContributions{
-                    self.contributionCounts.append(contribution.contributionCount)
-                }
-                self.currentMaxContribution = sortedContributions.max(by: { (lhs, rhs) -> Bool in
-                    return lhs.contributionCount < rhs.contributionCount
-                })!.contributionCount
-                
-                // ラベルに反映
-                if let lastContribution = contributions.last{
-                    self.lastContributionCountLabel.stringValue = "\( lastContribution.contributionCount)"
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "y/M/d"
-                    self.lastContributionDateLabel.stringValue = "At: \(formatter.string(from: lastContribution.date))"
-                }
-                
-            })
-            collectionView.reloadData()
-        } catch {
-            print(error.localizedDescription)
-            self.contributionCounts = .init(repeating: 0, count: 365)
-        }
+        // UDから設定値を読み込んで
+        currentUserName = userdefaults.string(forKey: "UserName")
+        currentUIEnabled = userdefaults.bool(forKey: "UIEnabled")
         
+        updateContribution()
+
         // 通知センターから設定変更通知を受け取る
         NotificationCenter.default.addObserver(self, selector: #selector(onUserInteractionModeChanged(_:)), name: .kUserInteractionEnabledNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onUserNameChanged(_:)), name: .kUserNameChangedNotification, object: nil)
+    }
+    
+    // Usernameの値が変わったとき
+    @objc func onUserNameChanged(_ sender: Any?){
+        // 送られてきたオブジェクトをキャストしてcontribution更新
+        guard let notification = sender as? NSNotification else {return}
+        currentUserName = notification.object as? String
+     
+        updateContribution()
     }
     
     // UserIntearctionEnabledの値が変わったとき
     @objc func onUserInteractionModeChanged(_ sender: Any?){
-        // 送られてきたオブジェクトをキャストして
+        // 送られてきたオブジェクトをキャストしてウィンドウ更新
         guard let notification = sender as? NSNotification else {return}
+        currentUIEnabled = notification.object as? Bool
         
-        // 表示
-        guard let interactionEnabledFlag = notification.object as? Bool else {return}
-        
-        // ウィンドウ初期化
-        setWindowAppearance(window: self.view.window, hiddenMode: !interactionEnabledFlag)
+        updateWindowAppearance()
     }
     
     override func viewWillAppear() {
-        // ウィンドウの外観を初期化
-        setWindowAppearance(window: self.view.window, hiddenMode: false)
+        updateWindowAppearance()
+    }
+    
+    // contributionを更新
+    func updateContribution(){
+        // パーサでデータを取得
+        if let currentUserName = currentUserName{
+            let parser = ContributionXMLParser(userName: currentUserName)
+            do {
+                try parser?.fetchContributions(completion: { (contributions) in
+                    // 草を生やして
+                    let sortedContributions = contributions.sorted()
+                    self.contributions = sortedContributions
+                    self.currentMaxContribution = sortedContributions.max(by: { (lhs, rhs) -> Bool in
+                        return lhs.contributionCount < rhs.contributionCount
+                    })!
+                    
+                    // ラベルに反映
+                    if let lastContribution = contributions.last{
+                        self.lastContributionCountLabel.stringValue = "\( lastContribution.contributionCount)"
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "y/M/d"
+                        self.lastContributionDateLabel.stringValue = "At: \(formatter.string(from: lastContribution.date))"
+                    }
+                    
+                })
+                collectionView.reloadData()
+            } catch {
+                print(error.localizedDescription)
+                self.contributions = .init(repeating: ContributionInfo(date: Date(), contributionCount: 0), count: 365)
+            }
+        }
+    }
+    
+    // ウィンドウの表示モードを更新
+    func updateWindowAppearance(){
+        setWindowAppearance(window: self.view.window, hiddenMode: !(currentUIEnabled ?? false))
     }
     
     override func viewDidAppear() {
@@ -99,17 +122,20 @@ class ViewController: NSViewController {
 extension ViewController: NSCollectionViewDataSource {
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.contributionCounts.count
+        return self.contributions.count
     }
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         
-        let contribution = self.contributionCounts[indexPath[1]]
+        let contribution = self.contributions[indexPath[1]]
+        let formatter = DateFormatter()
+        formatter.dateFormat = "y/M/d"
+        print("at \(indexPath[1]): \(formatter.string(from: contribution.date)) \(contribution.contributionCount) conts")
         
         // セル作って
         let item = collectionView.makeItem(withIdentifier: .init("item"), for: indexPath) as! CustomItem
         
-        item.contributionCount = contribution
+        item.contributionCount = contribution.contributionCount
         
         // 色指定
         if #available(OSX 10.13, *) {
@@ -119,7 +145,7 @@ extension ViewController: NSCollectionViewDataSource {
         }
         
         // 最大コミット数に占めるコミット数の割合を計算
-        let contributionRate = Double(contribution) / Double(self.currentMaxContribution)
+        let contributionRate = Double(contribution.contributionCount) / Double(self.currentMaxContribution!.contributionCount)
         
         // 5段階に分けて色設定
         let itemColorName: String
@@ -135,6 +161,7 @@ extension ViewController: NSCollectionViewDataSource {
         default:
             itemColorName = "GrassColor/Background"
         }
+        
         if #available(OSX 10.13, *) {
             item.backgroundColor = NSColor(named: itemColorName)
         } else {

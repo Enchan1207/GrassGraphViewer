@@ -72,6 +72,7 @@ class ContributionXMLParser: NSObject, XMLParserDelegate {
     
     // start to parse
     internal func parserDidStartDocument(_ parser: XMLParser) {
+        self.contributions = []
     }
     
     // detect start of element

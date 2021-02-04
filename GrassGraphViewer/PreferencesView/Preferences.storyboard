@@ -167,6 +167,7 @@
                     </view>
                     <connections>
                         <outlet property="UIEnabledCheckbox" destination="HIJ-cM-NW4" id="Xhm-xq-86J"/>
+                        <outlet property="applyButton" destination="ZdA-um-bIN" id="5Cc-9Q-PgY"/>
                         <outlet property="fetchStatLabel" destination="sL5-G1-Zlh" id="dPy-Ab-LYQ"/>
                         <outlet property="loadCircle" destination="fMA-Lk-aSA" id="SCN-x2-f4q"/>
                         <outlet property="usernameField" destination="8PX-mC-S6R" id="IUB-GR-ijj"/>

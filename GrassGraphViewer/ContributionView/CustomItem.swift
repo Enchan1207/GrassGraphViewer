@@ -24,4 +24,8 @@ class CustomItem: NSCollectionViewItem {
         self.view.layer?.cornerRadius = 2
         self.view.layer?.borderColor = self.borderColor?.cgColor
     }
+    
+    override func mouseDown(with event: NSEvent) {
+        print(contributionCount)
+    }
 }
