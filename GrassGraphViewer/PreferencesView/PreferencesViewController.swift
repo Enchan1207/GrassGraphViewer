@@ -15,6 +15,8 @@ class PreferencesViewController: NSViewController {
     private var currentUIEnabled: Bool?
     private var currentUserLastFetchDate: String?
     
+    var isVisible: Bool = false
+    
     @IBOutlet weak var UIEnabledCheckbox: NSButton!
     @IBOutlet weak var usernameField: NSTextField!
     @IBOutlet weak var fetchStatLabel: NSTextField!
@@ -25,7 +27,6 @@ class PreferencesViewController: NSViewController {
         super.viewDidLoad()
         
         // NSUserdefaultsから値を取得
-        // TODO: キーをenumに
         self.currentUserName = userdefaults.string(forKey: .UserName)
         self.currentUIEnabled = userdefaults.bool(forKey: .UIEnabled)
         // TODO: UDにDateを突っ込めるように
@@ -43,6 +44,11 @@ class PreferencesViewController: NSViewController {
     }
     
     override func viewDidAppear() {
+        // 表示フラグが立っていなければ表示しない(Rootviewcontrollerとして起動したとき用)
+        if(!isVisible){
+            self.view.window?.orderOut(self)
+            return
+        }
     }
     
     @IBAction func onChangeUsernameField(_ sender: NSTextField) {

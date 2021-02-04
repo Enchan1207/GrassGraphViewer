@@ -8,7 +8,7 @@
 import Cocoa
 import Foundation
 
-extension ViewController {
+extension ContributionViewController {
     // ウィンドウ初期化
     func setWindowAppearance(window: NSWindow?, hiddenMode: Bool){
         guard let window = window else {
