@@ -21,6 +21,7 @@ class CustomItem: NSCollectionViewItem {
     override func viewWillAppear() {
         self.view.layer?.backgroundColor = self.backgroundColor?.cgColor
         self.view.layer?.borderWidth = 1
+        self.view.layer?.cornerRadius = 2
         self.view.layer?.borderColor = self.borderColor?.cgColor
     }
 }

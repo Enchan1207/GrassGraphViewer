@@ -39,7 +39,7 @@ class ViewController: NSViewController {
         
         // backgroundView設定
         backgroundView.wantsLayer = true
-        backgroundView.layer?.backgroundColor = .init(gray: 0, alpha: 0.3)
+        backgroundView.layer?.backgroundColor = .init(gray: 0, alpha: 0)
         
         // XMLから読み込んだデータを反映
         let parser = ContributionXMLParser(userName: "Enchan1207")
@@ -59,6 +59,7 @@ class ViewController: NSViewController {
             self.contributions = .init(repeating: 0, count: 365)
         }
         
+        // 通知センターから設定変更通知を受け取る
         NotificationCenter.default.addObserver(self, selector: #selector(onUserInteractionModeChanged(_:)), name: .kUserInteractionEnabledNotification, object: nil)
     }
     
@@ -68,16 +69,14 @@ class ViewController: NSViewController {
         
         // 表示
         guard let interactionEnabledFlag = notification.object as? Bool else {return}
-        print(interactionEnabledFlag)
+        
+        // ウィンドウ初期化
+        setWindowAppearance(window: self.view.window, hiddenMode: !interactionEnabledFlag)
     }
     
     override func viewWillAppear() {
         // ウィンドウ初期化
-        if let window = self.view.window{
-            setWindowAppearance(window: window, hiddenMode: false)
-        }else{
-            assertionFailure("Window object is nil!")
-        }
+        setWindowAppearance(window: self.view.window, hiddenMode: false)
     }
     
     override func viewDidAppear() {

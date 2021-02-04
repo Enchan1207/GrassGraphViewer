@@ -10,33 +10,46 @@ import Foundation
 
 extension ViewController {
     // ウィンドウ初期化
-    func setWindowAppearance(window: NSWindow, hiddenMode: Bool){
+    func setWindowAppearance(window: NSWindow?, hiddenMode: Bool){
+        guard let window = window else {
+            print("Window object is nil!")
+            return
+        }
+        print("どうなってるの?")
+        
         // サイズ指定
         window.isRestorable = false
-        window.setFrame(NSRect(origin: window.frame.origin, size: self.view.frame.size), display: true)
+        window.setContentSize(self.view.frame.size)
+        
+        window.title = "GrassGraphViewer"
         
         // 背景の透明化
         window.backgroundColor = .init(white: 0, alpha: 0)
         window.hasShadow = false
         window.isOpaque = false
         
-        let windowLevelKey: CGWindowLevelKey
+        // ウィンドウ移動設定
+        window.isMovable = !hiddenMode
+        
+        // その他諸々を隠したり隠さなかったり
+        window.titlebarAppearsTransparent = hiddenMode
+        window.titleVisibility = hiddenMode ? .hidden : .visible
         if(hiddenMode){
-            // ウィンドウ移動設定
-            window.isMovable = false // ウィンドウを動かさない
-            // window.isMovableByWindowBackground = true // viewをドラッグして移動
-
-            // その他諸々を隠す
-            window.titlebarAppearsTransparent = true
-            window.titleVisibility = .hidden
             window.styleMask.remove(.titled)
             window.styleMask.remove(.closable)
+        }else{
+            window.styleMask.insert(.titled)
+            window.styleMask.insert(.closable)
+        }
 
-            window.ignoresMouseEvents = true // マウスイベントを無視
-
+        // マウスイベントを無視
+        window.ignoresMouseEvents = hiddenMode
+        
+        // ウィンドウ表示位置を設定
+        let windowLevelKey: CGWindowLevelKey
+        if(hiddenMode){
             windowLevelKey = .desktopIconWindow
         }else{
-            window.title = "GrassGraphViewer"
             windowLevelKey = .normalWindow
         }
         
