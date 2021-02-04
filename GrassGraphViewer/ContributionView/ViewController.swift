@@ -14,6 +14,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var flowLayout: NSCollectionViewFlowLayout!
     
+    @IBOutlet weak var usernameLabel: NSTextField!
     @IBOutlet weak var lastContributionCountLabel: NSTextField!
     @IBOutlet weak var lastContributionDateLabel: NSTextField!
     
@@ -94,7 +95,8 @@ class ViewController: NSViewController {
                         self.lastContributionCountLabel.stringValue = "\( lastContribution.contributionCount)"
                         let formatter = DateFormatter()
                         formatter.dateFormat = "y/M/d"
-                        self.lastContributionDateLabel.stringValue = "At: \(formatter.string(from: lastContribution.date))"
+                        self.lastContributionDateLabel.stringValue = "(At: \(formatter.string(from: lastContribution.date)))"
+                        self.usernameLabel.stringValue = currentUserName
                     }
 
                     self.collectionView.reloadData()
