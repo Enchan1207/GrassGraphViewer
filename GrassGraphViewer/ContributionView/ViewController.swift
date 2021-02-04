@@ -47,8 +47,8 @@ class ViewController: NSViewController {
         flowLayout.itemSize = NSSize(width: 11, height: 11)
         
         // UDから設定値を読み込んで
-        currentUserName = userdefaults.string(forKey: "UserName")
-        currentUIEnabled = userdefaults.bool(forKey: "UIEnabled")
+        currentUserName = userdefaults.string(forKey: .UserName)
+        currentUIEnabled = userdefaults.bool(forKey: .UIEnabled)
 
         // 通知センターから設定変更通知を受け取る
         NotificationCenter.default.addObserver(self, selector: #selector(onUserInteractionModeChanged(_:)), name: .kUserInteractionEnabledNotification, object: nil)
@@ -72,7 +72,7 @@ class ViewController: NSViewController {
         // UDに反映
         let formatter = DateFormatter()
         formatter.dateFormat = "y/M/d HH:mm:ss"
-        userdefaults.setValue(formatter.string(from: Date()), forKey: "LastFetched")
+        userdefaults.setValue(formatter.string(from: Date()), forKey: .LastFetched)
     }
     
     // Usernameの値が変わったとき

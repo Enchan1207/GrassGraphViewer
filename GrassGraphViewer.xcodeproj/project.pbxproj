@@ -22,6 +22,7 @@
 		9E9FD4C025CADCBF0053DC25 /* NotificationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4BF25CADCBF0053DC25 /* NotificationKeys.swift */; };
 		9E9FD50725CBBAFE0053DC25 /* ContributionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD50625CBBAFE0053DC25 /* ContributionInfo.swift */; };
 		9E9FD52725CBDF9C0053DC25 /* ContributionGraph.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD52625CBDF9C0053DC25 /* ContributionGraph.storyboard */; };
+		9E9FD53225CBE6340053DC25 /* UserDefaultsExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD53125CBE6340053DC25 /* UserDefaultsExt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		9E9FD4BF25CADCBF0053DC25 /* NotificationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationKeys.swift; sourceTree = "<group>"; };
 		9E9FD50625CBBAFE0053DC25 /* ContributionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionInfo.swift; sourceTree = "<group>"; };
 		9E9FD52625CBDF9C0053DC25 /* ContributionGraph.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ContributionGraph.storyboard; sourceTree = "<group>"; };
+		9E9FD53125CBE6340053DC25 /* UserDefaultsExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				9E9FD30725C79DFE0053DC25 /* AppDelegate.swift */,
+				9E9FD53125CBE6340053DC25 /* UserDefaultsExt.swift */,
 				9E9FD30D25C79E000053DC25 /* Main.storyboard */,
 				9E9FD4D925CB7C740053DC25 /* ContributionView */,
 				9E9FD4CA25CB5AF70053DC25 /* PreferencesView */,
@@ -302,6 +305,7 @@
 				9E9FD49E25C982E80053DC25 /* ContributionXMLParser.swift in Sources */,
 				9E9FD4A325C982EF0053DC25 /* WindowAppearanceExt.swift in Sources */,
 				9E9FD30A25C79DFE0053DC25 /* ViewController.swift in Sources */,
+				9E9FD53225CBE6340053DC25 /* UserDefaultsExt.swift in Sources */,
 				9E9FD30825C79DFE0053DC25 /* AppDelegate.swift in Sources */,
 				9E9FD34B25C7BFAC0053DC25 /* CustomItem.swift in Sources */,
 				9E9FD50725CBBAFE0053DC25 /* ContributionInfo.swift in Sources */,

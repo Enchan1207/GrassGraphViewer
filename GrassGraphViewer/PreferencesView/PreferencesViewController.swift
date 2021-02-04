@@ -26,10 +26,10 @@ class PreferencesViewController: NSViewController {
         
         // NSUserdefaultsから値を取得
         // TODO: キーをenumに
-        self.currentUserName = userdefaults.string(forKey: "UserName")
-        self.currentUIEnabled = userdefaults.bool(forKey: "UIEnabled")
+        self.currentUserName = userdefaults.string(forKey: .UserName)
+        self.currentUIEnabled = userdefaults.bool(forKey: .UIEnabled)
         // TODO: UDにDateを突っ込めるように
-        self.currentUserLastFetchDate = userdefaults.string(forKey: "LastFetched")
+        self.currentUserLastFetchDate = userdefaults.string(forKey: .LastFetched)
         
         loadCircle.isHidden = true
 
@@ -79,7 +79,7 @@ class PreferencesViewController: NSViewController {
             NotificationCenter.default.post(name: .kUserNameChangedNotification, object: currentUserName)
             
             // UDに反映
-            userdefaults.setValue(currentUserName, forKey: "UserName")
+            userdefaults.setValue(currentUserName, forKey: .UserName)
         }
     }
     
@@ -91,7 +91,7 @@ class PreferencesViewController: NSViewController {
         NotificationCenter.default.post(name: .kUserInteractionEnabledNotification, object: currentUIEnabled)
         
         // UDに反映
-        userdefaults.setValue(currentUIEnabled, forKey: "UIEnabled")
+        userdefaults.setValue(currentUIEnabled, forKey: .UIEnabled)
     }
     
     @IBAction func onTapApplyChanges(_ sender: Any) {
@@ -104,8 +104,8 @@ class PreferencesViewController: NSViewController {
     
     // 変更をUDに反映
     func updateAllStoredData(){
-        userdefaults.setValue(currentUserName, forKey: "UserName")
-        userdefaults.setValue(currentUIEnabled, forKey: "UIEnabled")
+        userdefaults.setValue(currentUserName, forKey: .UserName)
+        userdefaults.setValue(currentUIEnabled, forKey: .UIEnabled)
     }
     
 }
