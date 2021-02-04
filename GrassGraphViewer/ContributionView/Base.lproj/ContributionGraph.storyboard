@@ -707,10 +707,10 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="GrassGraphViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="525" height="117"/>
+                        <rect key="frame" x="0.0" y="0.0" width="525" height="89"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="0X9-V9-Wkn">
-                                <rect key="frame" x="0.0" y="28" width="525" height="89"/>
+                                <rect key="frame" x="0.0" y="0.0" width="525" height="89"/>
                                 <subviews>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="w7c-h9-N15">
                                         <rect key="frame" x="345" y="0.0" width="180" height="89"/>
@@ -812,7 +812,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="74.5" y="713.5"/>
+            <point key="canvasLocation" x="74.5" y="699.5"/>
         </scene>
     </scenes>
 </document>

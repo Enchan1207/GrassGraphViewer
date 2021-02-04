@@ -15,7 +15,6 @@ extension ViewController {
             print("Window object is nil!")
             return
         }
-        print("どうなってるの?")
         
         // サイズ指定
         window.isRestorable = false
