@@ -8,5 +8,5 @@
 import Foundation
 
 extension Notification.Name {
-    public static let kPreferenceUpdatedNotification = Notification.Name("PreferenceUpdatedNotification")
+    public static let kUserInteractionEnabledNotification = Notification.Name("kUserInteractionEnabledNotification")
 }

@@ -59,19 +59,16 @@ class ViewController: NSViewController {
             self.contributions = .init(repeating: 0, count: 365)
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(preferenceDidChange(_:)), name: .kPreferenceUpdatedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onUserInteractionModeChanged(_:)), name: .kUserInteractionEnabledNotification, object: nil)
     }
     
-    @objc func preferenceDidChange(_ sender: Any?){
+    @objc func onUserInteractionModeChanged(_ sender: Any?){
         // 送られてきたオブジェクトをキャストして
         guard let notification = sender as? NSNotification else {return}
         
-        // 値を当てる
-        let windowLevelInt = notification.object as! Int32
-        guard let windowLevelKey = CGWindowLevelKey(rawValue: windowLevelInt) else{return}
-        
-        self.view.window?.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(windowLevelKey)))
-        
+        // 表示
+        guard let interactionEnabledFlag = notification.object as? Bool else {return}
+        print(interactionEnabledFlag)
     }
     
     override func viewWillAppear() {

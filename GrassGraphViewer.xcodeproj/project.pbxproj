@@ -119,8 +119,7 @@
 				9E9FD34A25C7BFAC0053DC25 /* CustomItem.xib */,
 				9E9FD30B25C79E000053DC25 /* Assets.xcassets */,
 				9E9FD30D25C79E000053DC25 /* Main.storyboard */,
-				9E9FD4AD25CAC6600053DC25 /* Preferences.storyboard */,
-				9E9FD4B225CAD5D90053DC25 /* PreferencesViewController.swift */,
+				9E9FD4CA25CB5AF70053DC25 /* Preferences */,
 				9E9FD31025C79E000053DC25 /* Info.plist */,
 				9E9FD31125C79E000053DC25 /* GrassGraphViewer.entitlements */,
 			);
@@ -143,6 +142,15 @@
 				9E9FD32725C79E000053DC25 /* Info.plist */,
 			);
 			path = GrassGraphViewerUITests;
+			sourceTree = "<group>";
+		};
+		9E9FD4CA25CB5AF70053DC25 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				9E9FD4AD25CAC6600053DC25 /* Preferences.storyboard */,
+				9E9FD4B225CAD5D90053DC25 /* PreferencesViewController.swift */,
+			);
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
