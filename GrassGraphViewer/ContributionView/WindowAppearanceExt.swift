@@ -19,26 +19,15 @@ extension ViewController {
         window.isRestorable = false
         window.setContentSize(self.view.frame.size)
         
-        // タイトル設定
-        if let username = self.currentUserName{
-            window.title = "\(username)'s progress graph"
-        }else{
-            window.title = "progress graph"
-        }
-        
         // 背景設定
         window.hasShadow = false
         window.isOpaque = false
         
         let backgroundViewColor: NSColor
-        if(!hiddenMode){
-            if #available(OSX 10.13, *) {
-                backgroundViewColor = NSColor(named: "Background")!
-            } else {
-                backgroundViewColor = .init(white: 0, alpha: 0.3)
-            }
-        }else{
-            backgroundViewColor = .clear
+        if #available(OSX 10.13, *) {
+            backgroundViewColor = NSColor(named: "Background")!
+        } else {
+            backgroundViewColor = .init(white: 0, alpha: 0.3)
         }
         window.backgroundColor = backgroundViewColor
         
@@ -48,12 +37,18 @@ extension ViewController {
         // その他諸々を隠したり隠さなかったり
         window.titlebarAppearsTransparent = hiddenMode
         window.titleVisibility = hiddenMode ? .hidden : .visible
+        window.styleMask.remove(.closable)
         if(hiddenMode){
             window.styleMask.remove(.titled)
-            window.styleMask.remove(.closable)
         }else{
             window.styleMask.insert(.titled)
-            window.styleMask.insert(.closable)
+        }
+        
+        // タイトル設定
+        if let username = self.currentUserName{
+            window.title = "\(username)'s progress graph"
+        }else{
+            window.title = "progress graph"
         }
 
         // マウスイベントを無視

@@ -40,6 +40,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // 表示
         let windowVC = NSWindowController(window: NSWindow(contentViewController: initialVC))
         windowVC.showWindow(self)
+//        windowVC.close()
         
     }
 

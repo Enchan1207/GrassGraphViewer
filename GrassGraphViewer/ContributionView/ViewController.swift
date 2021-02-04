@@ -26,6 +26,8 @@ class ViewController: NSViewController {
     var currentUserName: String?
     var currentUIEnabled: Bool?
     
+    var updateTimer: Timer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,6 +53,26 @@ class ViewController: NSViewController {
         // 通知センターから設定変更通知を受け取る
         NotificationCenter.default.addObserver(self, selector: #selector(onUserInteractionModeChanged(_:)), name: .kUserInteractionEnabledNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onUserNameChanged(_:)), name: .kUserNameChangedNotification, object: nil)
+        
+        // 定期更新を開始
+        // TODO: 更新間隔
+        self.updateTimer = Timer.scheduledTimer(timeInterval: 3600, target: self, selector: #selector(onTimerUpdated), userInfo: nil, repeats: true)
+    }
+    
+    // 定期更新時の処理
+    @objc func onTimerUpdated(){
+        // contributionを更新して
+        print("Timer updated!")
+        updateContribution()
+        
+        // 自動で端までスクロールし
+        let contentWidth = flowLayout.collectionViewContentSize.width
+        collectionView.scroll(NSPoint(x: contentWidth, y: 0))
+        
+        // UDに反映
+        let formatter = DateFormatter()
+        formatter.dateFormat = "y/M/d HH:mm:ss"
+        userdefaults.setValue(formatter.string(from: Date()), forKey: "LastFetched")
     }
     
     // Usernameの値が変わったとき
@@ -118,6 +140,11 @@ class ViewController: NSViewController {
         // 自動で端までスクロールさせる
         let contentWidth = flowLayout.collectionViewContentSize.width
         collectionView.scroll(NSPoint(x: contentWidth, y: 0))
+    }
+    
+    override func viewDidDisappear() {
+        // TODO: ここでinvalidateするとウィンドウレベル変えた時にタイマ止まっちゃいます
+        self.updateTimer?.invalidate()
     }
 }
 

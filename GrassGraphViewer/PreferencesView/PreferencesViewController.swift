@@ -13,6 +13,7 @@ class PreferencesViewController: NSViewController {
     
     private var currentUserName: String?
     private var currentUIEnabled: Bool?
+    private var currentUserLastFetchDate: String?
     
     @IBOutlet weak var UIEnabledCheckbox: NSButton!
     @IBOutlet weak var usernameField: NSTextField!
@@ -27,6 +28,8 @@ class PreferencesViewController: NSViewController {
         // TODO: キーをenumに
         self.currentUserName = userdefaults.string(forKey: "UserName")
         self.currentUIEnabled = userdefaults.bool(forKey: "UIEnabled")
+        // TODO: UDにDateを突っ込めるように
+        self.currentUserLastFetchDate = userdefaults.string(forKey: "LastFetched")
         
         loadCircle.isHidden = true
 
@@ -36,6 +39,7 @@ class PreferencesViewController: NSViewController {
         // UIに反映
         usernameField.stringValue = self.currentUserName ?? ""
         UIEnabledCheckbox.intValue = (self.currentUIEnabled ?? false) ? 1 : 0
+        fetchStatLabel.stringValue = "Last Fetched: \(currentUserLastFetchDate ?? "")"
     }
     
     override func viewDidAppear() {
