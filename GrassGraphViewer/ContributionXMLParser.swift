@@ -81,10 +81,12 @@ class ContributionXMLParser: NSObject, XMLParserDelegate {
         // contributionの情報が格納されていれば
         if
             let dataCount = attributeDict["data-count"],
-            let dataDate = self.dateFormatter.date(from: attributeDict["data-date"] ?? ""){
+            let dataDate = self.dateFormatter.date(from: attributeDict["data-date"] ?? ""),
+            let dataLevel = attributeDict["data-level"]
+        {
             
             // contributionsに追加
-            self.contributions.append(ContributionInfo(date: dataDate, contributionCount: UInt(dataCount) ?? 0))
+            self.contributions.append(ContributionInfo(date: dataDate, contributionCount: UInt(dataCount) ?? 0, level: UInt(dataLevel) ?? 0))
         }
     }
     
@@ -108,13 +110,4 @@ class ContributionXMLParser: NSObject, XMLParserDelegate {
 enum ContributionXMLParserError: Error {
     case fetchFailed
     case svgSliceFailed
-}
-
-struct ContributionInfo: Comparable {
-    static func < (lhs: ContributionInfo, rhs: ContributionInfo) -> Bool {
-        return lhs.date < rhs.date
-    }
-    
-    let date: Date
-    let contributionCount: UInt
 }

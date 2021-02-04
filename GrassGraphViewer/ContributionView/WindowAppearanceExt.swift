@@ -19,7 +19,12 @@ extension ViewController {
         window.isRestorable = false
         window.setContentSize(self.view.frame.size)
         
-        window.title = "GrassGraphViewer"
+        // タイトル設定
+        if let username = self.currentUserName{
+            window.title = "\(username)'s progress graph"
+        }else{
+            window.title = "progress graph"
+        }
         
         // 背景設定
         window.hasShadow = false

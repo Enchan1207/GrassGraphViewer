@@ -22,8 +22,8 @@ class ViewController: NSViewController {
     
     private let userdefaults = UserDefaults.standard
     
-    private var currentUserName: String?
-    private var currentUIEnabled: Bool?
+    var currentUserName: String?
+    var currentUIEnabled: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,8 +46,6 @@ class ViewController: NSViewController {
         // UDから設定値を読み込んで
         currentUserName = userdefaults.string(forKey: "UserName")
         currentUIEnabled = userdefaults.bool(forKey: "UIEnabled")
-        
-        updateContribution()
 
         // 通知センターから設定変更通知を受け取る
         NotificationCenter.default.addObserver(self, selector: #selector(onUserInteractionModeChanged(_:)), name: .kUserInteractionEnabledNotification, object: nil)
@@ -73,6 +71,7 @@ class ViewController: NSViewController {
     }
     
     override func viewWillAppear() {
+        updateContribution()
         updateWindowAppearance()
     }
     
@@ -97,12 +96,13 @@ class ViewController: NSViewController {
                         formatter.dateFormat = "y/M/d"
                         self.lastContributionDateLabel.stringValue = "At: \(formatter.string(from: lastContribution.date))"
                     }
-                    
+
+                    self.collectionView.reloadData()
                 })
-                collectionView.reloadData()
             } catch {
                 print(error.localizedDescription)
-                self.contributions = .init(repeating: ContributionInfo(date: Date(), contributionCount: 0), count: 365)
+                self.contributions = .init(repeating: ContributionInfo(date: Date(), contributionCount: 0, level: 0), count: 365)
+                self.collectionView.reloadData()
             }
         }
     }
@@ -130,45 +130,9 @@ extension ViewController: NSCollectionViewDataSource {
         let contribution = self.contributions[indexPath[1]]
         let formatter = DateFormatter()
         formatter.dateFormat = "y/M/d"
-        print("at \(indexPath[1]): \(formatter.string(from: contribution.date)) \(contribution.contributionCount) conts")
         
-        // セル作って
         let item = collectionView.makeItem(withIdentifier: .init("item"), for: indexPath) as! CustomItem
-        
-        item.contributionCount = contribution.contributionCount
-        
-        // 色指定
-        if #available(OSX 10.13, *) {
-            item.borderColor = NSColor(named: "GrassColor/Border")
-        } else {
-            item.borderColor = .systemGray
-        }
-        
-        // 最大コミット数に占めるコミット数の割合を計算
-        let contributionRate = Double(contribution.contributionCount) / Double(self.currentMaxContribution!.contributionCount)
-        
-        // 5段階に分けて色設定
-        let itemColorName: String
-        switch contributionRate {
-        case let n where n > 0 && n < 0.2:
-            itemColorName = "GrassColor/Level1"
-        case 0.2..<0.4:
-            itemColorName = "GrassColor/Level2"
-        case 0.4..<0.8:
-            itemColorName = "GrassColor/Level3"
-        case 0.8..<1.0:
-            itemColorName = "GrassColor/Level4"
-        default:
-            itemColorName = "GrassColor/Background"
-        }
-        
-        if #available(OSX 10.13, *) {
-            item.backgroundColor = NSColor(named: itemColorName)
-        } else {
-            // TODO: 対応してなければHSBでそれっぽいのを作る
-            item.backgroundColor = .green
-        }
-        
+        item.contribution = contribution
         return item
     }
 }

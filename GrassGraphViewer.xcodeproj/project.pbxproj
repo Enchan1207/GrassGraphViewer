@@ -20,6 +20,7 @@
 		9E9FD4AE25CAC6600053DC25 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD4AD25CAC6600053DC25 /* Preferences.storyboard */; };
 		9E9FD4B325CAD5D90053DC25 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4B225CAD5D90053DC25 /* PreferencesViewController.swift */; };
 		9E9FD4C025CADCBF0053DC25 /* ObservationKeyExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4BF25CADCBF0053DC25 /* ObservationKeyExt.swift */; };
+		9E9FD50725CBBAFE0053DC25 /* ContributionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD50625CBBAFE0053DC25 /* ContributionInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		9E9FD4AD25CAC6600053DC25 /* Preferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
 		9E9FD4B225CAD5D90053DC25 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		9E9FD4BF25CADCBF0053DC25 /* ObservationKeyExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservationKeyExt.swift; sourceTree = "<group>"; };
+		9E9FD50625CBBAFE0053DC25 /* ContributionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				9E9FD4CA25CB5AF70053DC25 /* PreferencesView */,
 				9E9FD4BF25CADCBF0053DC25 /* ObservationKeyExt.swift */,
 				9E9FD49D25C982E80053DC25 /* ContributionXMLParser.swift */,
+				9E9FD50625CBBAFE0053DC25 /* ContributionInfo.swift */,
 				9E9FD30B25C79E000053DC25 /* Assets.xcassets */,
 				9E9FD31025C79E000053DC25 /* Info.plist */,
 				9E9FD31125C79E000053DC25 /* GrassGraphViewer.entitlements */,
@@ -297,6 +300,7 @@
 				9E9FD30A25C79DFE0053DC25 /* ViewController.swift in Sources */,
 				9E9FD30825C79DFE0053DC25 /* AppDelegate.swift in Sources */,
 				9E9FD34B25C7BFAC0053DC25 /* CustomItem.swift in Sources */,
+				9E9FD50725CBBAFE0053DC25 /* ContributionInfo.swift in Sources */,
 				9E9FD4B325CAD5D90053DC25 /* PreferencesViewController.swift in Sources */,
 				9E9FD4C025CADCBF0053DC25 /* ObservationKeyExt.swift in Sources */,
 			);
