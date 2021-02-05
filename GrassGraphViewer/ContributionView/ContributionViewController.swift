@@ -114,7 +114,7 @@ class ContributionViewController: NSViewController {
                         return lhs.contributionCount < rhs.contributionCount
                     })!
                     
-                    // ラベルに反映
+                    // UIに反映
                     if let lastContribution = contributions.last{
                         self.lastContributionCountLabel.stringValue = "\( lastContribution.contributionCount)"
                         let formatter = DateFormatter()
@@ -122,7 +122,8 @@ class ContributionViewController: NSViewController {
                         self.lastContributionDateLabel.stringValue = "(At: \(formatter.string(from: lastContribution.date)))"
                         self.usernameLabel.stringValue = currentUserName
                     }
-
+                    // タイトル設定
+                    self.view.window?.title = "\(self.currentUserName!)'s progress graph"
                     self.collectionView.reloadData()
                 })
             } catch {

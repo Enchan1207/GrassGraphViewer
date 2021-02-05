@@ -30,20 +30,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let storedConfigurations = userdefaults.codable(forKey: .StoredConfigurations, type: StoredContributionViewConfigurations()){
             windowConfigurations = storedConfigurations.configurations
         }else{
-            windowConfigurations = []
+            windowConfigurations = .init(repeating: ContributionViewConfiguration(title: "", userName: "", lastFetchDate: Date(), presentOnLaunch: true), count: 1)
         }
         
         // ウィンドウを構成
-        for configuration in windowConfigurations{
-            
-            
-        }
-        
         let contributionViewStoryboard = NSStoryboard(name: "Contribution", bundle: nil)
-
-        // 各ウィジェットごとにNSWindowを作って表示する
-        // TODO: ウィンドウ増やしたり減らしたりする時どうすんの?
-        for config in contributionConfigurations {
+        for config in windowConfigurations{
             // VCを呼び出して
             guard let contributionViewController = contributionViewStoryboard.instantiateInitialController() as? ContributionViewController else{
                 fatalError("Couldn't generate virewController instance!")
@@ -54,7 +46,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             // NSWindow作って表示
             let window = ContributionWindow(contentViewController: contributionViewController)
-            window.tabbingMode = .disallowed
             let windowController = NSWindowController(window: window)
             windowController.showWindow(self)
         }
@@ -76,7 +67,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 }
 
-// メニューバーアイコン項目
+// メニューバーアイコン
 extension AppDelegate{
     // ステータスバーボタン初期化
     func initStatusBarButton(){
