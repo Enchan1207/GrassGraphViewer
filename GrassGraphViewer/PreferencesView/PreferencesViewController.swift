@@ -128,7 +128,7 @@ class PreferencesViewController: NSViewController {
         let selectedRowIndex = sender.selectedRow
         guard selectedRowIndex != -1 else {return}
         
-        print(selectedRowIndex)
+        print("Selected: \(selectedRowIndex)")
     }
     
     // ウィンドウ追加・削除ボタン
