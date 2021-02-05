@@ -11,7 +11,9 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     private let statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+    
     let application = NSApplication.shared
+    let userdefaults = UserDefaults.standard
     
     private var contributionConfigurations: [ContributionViewConfiguration] = []
     private var preferencesWindowController: NSWindowController!
@@ -23,11 +25,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // StoryboardからPreferencesViewControllerを持ってきておく
         initPreferencesViewController()
         
-        contributionConfigurations = .init(repeating: ContributionViewConfiguration(title: "", userName: "", lastFetchDate: Date()), count: 3)
+        // 前回のウィンドウ構成をリストアして
+        let windowConfigurations: [ContributionViewConfiguration]
+        if let storedConfigurations = userdefaults.codable(forKey: .StoredConfigurations, type: StoredContributionViewConfigurations()){
+            windowConfigurations = storedConfigurations.configurations
+        }else{
+            windowConfigurations = []
+        }
         
-        // ウィジェット配列をUDから取得し
+        // ウィンドウを構成
+        for configuration in windowConfigurations{
+            
+            
+        }
         
-        // contributionViewControllerを用意して
         let contributionViewStoryboard = NSStoryboard(name: "Contribution", bundle: nil)
 
         // 各ウィジェットごとにNSWindowを作って表示する
@@ -42,7 +53,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             contributionViewController.config = config
             
             // NSWindow作って表示
-            let window = NSWindow(contentViewController: contributionViewController)
+            let window = ContributionWindow(contentViewController: contributionViewController)
             window.tabbingMode = .disallowed
             let windowController = NSWindowController(window: window)
             windowController.showWindow(self)
@@ -58,7 +69,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         preferencesViewcontroller.isVisible = true
         self.preferencesWindowController = NSWindowController(window: NSWindow(contentViewController: preferencesViewcontroller))
     }
-    
+
+
+    func applicationWillTerminate(_ aNotification: Notification) {
+        // Insert code here to tear down your application
+    }
+}
+
+// メニューバーアイコン項目
+extension AppDelegate{
     // ステータスバーボタン初期化
     func initStatusBarButton(){
         if let statusBarButton = statusBarItem.button{
@@ -72,27 +91,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusBarItem.menu = menu
     }
     
-    // 設定画面を開く
+    // 「環境設定」
     @objc func openPreferences(){
         preferencesWindowController.showWindow(self)
         preferencesWindowController.window?.orderFront(self)
     }
     
+    // 「UserDefaultsを初期化して終了」
     @objc func initUserDefaults(){
-        let userdefaults = UserDefaults.standard
-        
-        let targetKeys = ["UIEnabled", "UserName", "LastFetched"]
-        for key in targetKeys{
-            userdefaults.removeObject(forKey: key)
-        }
-        
+        _ = UserDefaultsKey.allCases.map({
+            userdefaults.removeObject(forKey: $0.rawValue)
+        })
         NSApplication.shared.terminate(nil)
     }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
-
-
 }
-

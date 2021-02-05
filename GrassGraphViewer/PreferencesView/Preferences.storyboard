@@ -131,14 +131,26 @@
                                                         <action selector="onTapApplyChanges:" target="tg7-oh-DWo" id="OFK-Dt-YCp"/>
                                                     </connections>
                                                 </button>
+                                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EZb-dr-nCa">
+                                                    <rect key="frame" x="4" y="3" width="117" height="32"/>
+                                                    <buttonCell key="cell" type="push" title="Add Window" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ura-jq-lsH">
+                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="onClickAddWindow:" target="tg7-oh-DWo" id="GBU-Fz-cuH"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="9Ue-IZ-Xms" firstAttribute="leading" secondItem="OMn-Kh-Vvo" secondAttribute="leading" constant="10" id="LuB-mo-u8y"/>
                                                 <constraint firstAttribute="trailing" secondItem="ZdA-um-bIN" secondAttribute="trailing" constant="10" id="Q3w-Ys-DSb"/>
                                                 <constraint firstAttribute="bottom" secondItem="ZdA-um-bIN" secondAttribute="bottom" constant="10" id="Qio-7z-125"/>
+                                                <constraint firstAttribute="bottom" secondItem="EZb-dr-nCa" secondAttribute="bottom" constant="10" id="U9I-pN-aOq"/>
                                                 <constraint firstItem="9Ue-IZ-Xms" firstAttribute="top" secondItem="OMn-Kh-Vvo" secondAttribute="top" id="XDQ-RW-1e5"/>
                                                 <constraint firstItem="d17-8P-WEw" firstAttribute="top" secondItem="9Ue-IZ-Xms" secondAttribute="bottom" constant="10" id="XRO-gK-4fo"/>
                                                 <constraint firstAttribute="trailing" secondItem="d17-8P-WEw" secondAttribute="trailing" constant="10" id="Zpv-1h-kj6"/>
+                                                <constraint firstItem="EZb-dr-nCa" firstAttribute="leading" secondItem="OMn-Kh-Vvo" secondAttribute="leading" constant="10" id="ahU-Fa-GYb"/>
                                                 <constraint firstItem="d17-8P-WEw" firstAttribute="leading" secondItem="OMn-Kh-Vvo" secondAttribute="leading" constant="10" id="xSX-Im-3L6"/>
                                                 <constraint firstAttribute="trailing" secondItem="9Ue-IZ-Xms" secondAttribute="trailing" constant="10" id="y7k-hB-cbb"/>
                                             </constraints>

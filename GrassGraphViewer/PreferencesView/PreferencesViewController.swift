@@ -13,7 +13,7 @@ class PreferencesViewController: NSViewController {
     
     private var currentUserName: String?
     private var currentUIEnabled: Bool?
-    private var currentUserLastFetchDate: String?
+    private var currentUserLastFetchDate: Date?
     
     var isVisible: Bool = false
     
@@ -29,8 +29,7 @@ class PreferencesViewController: NSViewController {
         // NSUserdefaultsから値を取得
         self.currentUserName = userdefaults.string(forKey: .UserName)
         self.currentUIEnabled = userdefaults.bool(forKey: .UIEnabled)
-        // TODO: UDにDateを突っ込めるように
-        self.currentUserLastFetchDate = userdefaults.string(forKey: .LastFetched)
+        self.currentUserLastFetchDate = userdefaults.date(forKey: .LastFetched)
         
         loadCircle.isHidden = true
 
@@ -40,7 +39,12 @@ class PreferencesViewController: NSViewController {
         // UIに反映
         usernameField.stringValue = self.currentUserName ?? ""
         UIEnabledCheckbox.intValue = (self.currentUIEnabled ?? false) ? 1 : 0
-        fetchStatLabel.stringValue = "Last Fetched: \(currentUserLastFetchDate ?? "")"
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "y/M/d hh:mm:ss"
+        formatter.timeZone = .autoupdatingCurrent
+        
+        fetchStatLabel.stringValue = "Last Fetched: \(formatter.string(from: currentUserLastFetchDate ?? Date()))"
     }
     
     override func viewDidAppear() {
@@ -76,9 +80,11 @@ class PreferencesViewController: NSViewController {
             loadCircle.isHidden = true
             
             // FetchDateを更新し
+            currentUserLastFetchDate = Date()
             let formatter = DateFormatter()
             formatter.dateFormat = "y/M/d hh:mm:ss"
-            fetchStatLabel.stringValue = "Last Fetched: \(formatter.string(from: Date()))"
+            formatter.timeZone = .autoupdatingCurrent
+            fetchStatLabel.stringValue = "Last Fetched: \(formatter.string(from: currentUserLastFetchDate ?? Date()))"
             
             // NotificationCenterから通知をぶち投げて
             currentUserName = newName
@@ -86,6 +92,7 @@ class PreferencesViewController: NSViewController {
             
             // UDに反映
             userdefaults.setValue(currentUserName, forKey: .UserName)
+            userdefaults.setValue(currentUserLastFetchDate, forKey: .LastFetched)
         }
     }
     
@@ -103,6 +110,10 @@ class PreferencesViewController: NSViewController {
     @IBAction func onTapApplyChanges(_ sender: Any) {
         updateAllStoredData()
     }
+        
+    @IBAction func onClickAddWindow(_ sender: Any) {
+        
+    }
     
     deinit {
         updateAllStoredData()
@@ -112,6 +123,7 @@ class PreferencesViewController: NSViewController {
     func updateAllStoredData(){
         userdefaults.setValue(currentUserName, forKey: .UserName)
         userdefaults.setValue(currentUIEnabled, forKey: .UIEnabled)
+        userdefaults.setValue(currentUserLastFetchDate, forKey: .LastFetched)
     }
     
 }
