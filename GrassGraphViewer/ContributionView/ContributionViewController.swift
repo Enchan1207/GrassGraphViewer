@@ -18,7 +18,7 @@ class ContributionViewController: NSViewController {
     @IBOutlet weak var lastContributionCountLabel: NSTextField!
     @IBOutlet weak var lastContributionDateLabel: NSTextField!
     
-    var config: ContributionViewConfiguration?
+    var config: ContributionViewConfiguration = .init()
     
     private var contributions: [ContributionInfo] = []
     private var currentMaxContribution: ContributionInfo?
@@ -59,6 +59,8 @@ class ContributionViewController: NSViewController {
         // 定期更新を開始
         // TODO: 更新間隔
         self.updateTimer = Timer.scheduledTimer(timeInterval: 3600, target: self, selector: #selector(onTimerUpdated), userInfo: nil, repeats: true)
+        
+        // Viewdidloadでconfigいじっても多分うまくいかんで
     }
     
     // 定期更新時の処理

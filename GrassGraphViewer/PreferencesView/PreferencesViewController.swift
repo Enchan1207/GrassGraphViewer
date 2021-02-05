@@ -7,13 +7,16 @@
 
 import Cocoa
 
-class PreferencesViewController: NSViewController {
+class PreferencesViewController: NSViewController, NSTableViewDataSource {
     
     private let userdefaults = UserDefaults.standard
     private let application = NSApplication.shared
     
+    private let windowManager = WindowManager()
     var currentContributionWindows: [ContributionWindow] = []
+    private var currentSelectedConfigutration = ContributionViewConfiguration()
     
+    // configベースで編集した方が良さそう
     private var currentUserName: String?
     private var currentUIEnabled: Bool?
     private var currentUserLastFetchDate: Date?
@@ -36,7 +39,6 @@ class PreferencesViewController: NSViewController {
         self.currentUserLastFetchDate = userdefaults.date(forKey: .LastFetched)
         
         // windowListView初期化
-        self.windowListView.delegate = self
         self.windowListView.dataSource = self
     }
     
@@ -128,47 +130,54 @@ class PreferencesViewController: NSViewController {
         let selectedRowIndex = sender.selectedRow
         guard selectedRowIndex != -1 else {return}
         
-        print("Selected: \(selectedRowIndex)")
+        // 選択された項目のウィンドウのconfigを設定し
+        guard let selectedContributionViewController = self.currentContributionWindows[selectedRowIndex].contentViewController as? ContributionViewController else {return}
+        currentSelectedConfigutration = selectedContributionViewController.config
+        print("Selected Items Config: \(currentSelectedConfigutration)")
+        
+        // TODO: 右ペインの内容を更新
+        
     }
     
     // ウィンドウ追加・削除ボタン
     @IBAction func onClickWindowsOperate(_ sender: NSSegmentedControl) {
         let selectedSegment = sender.selectedSegment
-        if(selectedSegment == 0){
-            
-            // ウィンドウを構成
-            let contributionViewStoryboard = NSStoryboard(name: "Contribution", bundle: nil)
-            
-            // VCを呼び出して
-            guard let contributionViewController = contributionViewStoryboard.instantiateInitialController() as? ContributionViewController else{
-                fatalError("Couldn't generate virewController instance!")
-            }
-            
-            // コンフィグ渡して
-//            contributionViewController.config = config
-            
-            // NSWindow作って表示
-            let window = ContributionWindow(contentViewController: contributionViewController)
-            let windowController = NSWindowController(window: window)
+        
+        switch selectedSegment {
+        
+        // ウィンドウ追加
+        case 0:
+            let newConfig = ContributionViewConfiguration(title: "", userName: "", lastFetchDate: Date(), presentOnLaunch: true)
+            let newWindow = windowManager.generateContributionWindow(config: newConfig)
+            let windowController = NSWindowController(window: newWindow)
             windowController.showWindow(self)
-            
-        }else if (selectedSegment == 1){
-            
-            // 選択されたウィンドウを取得して
+
+        // ウィンドウ削除
+        case 1:
             let selectedRow = windowListView.selectedRow
-            if(selectedRow >= 0){
-                // 閉じる
-                let selectedWindow = self.currentContributionWindows[selectedRow]
-                selectedWindow.close()
+            if selectedRow >= 0{
+                self.currentContributionWindows[selectedRow].close()
             }
+            
+        default:
+            fatalError("Invalid segment selected!")
         }
         
         updateWindowListView()
     }
     
+    // ウィンドウリストのdatasource
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return self.currentContributionWindows.count
+    }
+    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
+        guard let config = (self.currentContributionWindows[row].contentViewController as? ContributionViewController)?.config, config.title != "" else {return "Untitled"}
+        return config.title
+    }
+    
     // ウィンドウリストビューを更新
     func updateWindowListView(){
-        currentContributionWindows = self.application.windows.filter({return $0.isKind(of: ContributionWindow.self) && $0.isVisible}) as! [ContributionWindow]
+        currentContributionWindows = windowManager.getActiveContributionWindows()
         windowListView.reloadData()
     }
     
@@ -177,6 +186,7 @@ class PreferencesViewController: NSViewController {
         userdefaults.setValue(currentUserName, forKey: .UserName)
         userdefaults.setValue(currentUIEnabled, forKey: .UIEnabled)
         userdefaults.setValue(currentUserLastFetchDate, forKey: .LastFetched)
+        windowManager.updateStoredConfiguration()
     }
     
     deinit {
