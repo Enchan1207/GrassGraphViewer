@@ -18,7 +18,7 @@ class ContributionViewController: NSViewController {
     @IBOutlet weak var lastContributionCountLabel: NSTextField!
     @IBOutlet weak var lastContributionDateLabel: NSTextField!
     
-    var config: ContributionViewConfiguration = .init()
+    var config: ContributionViewConfiguration? = nil
     
     private var contributions: [ContributionInfo] = []
     private var currentMaxContribution: ContributionInfo?
@@ -33,20 +33,8 @@ class ContributionViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // collectionView設定
-        let xib = NSNib(nibNamed: "GrassCell", bundle: nil)
-        collectionView.register(xib, forItemWithIdentifier: .init("grass"))
-        collectionView.dataSource = self
-
-        collectionView.backgroundColors = [.clear]
-        collectionView.enclosingScrollView?.drawsBackground = false
-        collectionView.enclosingScrollView?.hasVerticalScroller = false
-        collectionView.enclosingScrollView?.hasHorizontalScroller = false
-        
-        flowLayout.minimumLineSpacing = 2
-        flowLayout.minimumInteritemSpacing = 2
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.itemSize = NSSize(width: 11, height: 11)
+        // UI設定
+        setupContributionUI()
         
         // UDから設定値を読み込んで
         currentUserName = userdefaults.string(forKey: .UserName)
@@ -63,6 +51,41 @@ class ContributionViewController: NSViewController {
         // Viewdidloadでconfigいじっても多分うまくいかんで
     }
     
+    override func viewWillAppear() {
+        // ビューを更新し、ウィンドウ表示レベルをいじる
+        updateContribution()
+        updateWindowAppearance()
+    }
+    
+    override func viewDidAppear() {
+        // 自動で端までスクロールさせる
+        let contentWidth = flowLayout.collectionViewContentSize.width
+        collectionView.scroll(NSPoint(x: contentWidth, y: 0))
+    }
+    
+    override func viewDidDisappear() {
+        // TODO: ここでinvalidateするとウィンドウレベル変えた時にタイマ止まっちゃいます
+        self.updateTimer?.invalidate()
+    }
+    
+    // UI初期設定
+    func setupContributionUI(){
+        // collectionView設定
+        let xib = NSNib(nibNamed: "GrassCell", bundle: nil)
+        collectionView.register(xib, forItemWithIdentifier: .init("grass"))
+        collectionView.dataSource = self
+
+        collectionView.backgroundColors = [.clear]
+        collectionView.enclosingScrollView?.drawsBackground = false
+        collectionView.enclosingScrollView?.hasVerticalScroller = false
+        collectionView.enclosingScrollView?.hasHorizontalScroller = false
+        
+        flowLayout.minimumLineSpacing = 2
+        flowLayout.minimumInteritemSpacing = 2
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.itemSize = NSSize(width: 11, height: 11)
+    }
+    
     // 定期更新時の処理
     @objc func onTimerUpdated(){
         // contributionを更新して
@@ -77,29 +100,6 @@ class ContributionViewController: NSViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "y/M/d HH:mm:ss"
         userdefaults.setValue(formatter.string(from: Date()), forKey: .LastFetched)
-    }
-    
-    // Usernameの値が変わったとき
-    @objc func onUserNameChanged(_ sender: Any?){
-        // 送られてきたオブジェクトをキャストしてcontribution更新
-        guard let notification = sender as? NSNotification else {return}
-        currentUserName = notification.object as? String
-     
-        updateContribution()
-    }
-    
-    // UserIntearctionEnabledの値が変わったとき
-    @objc func onUserInteractionModeChanged(_ sender: Any?){
-        // 送られてきたオブジェクトをキャストしてウィンドウ更新
-        guard let notification = sender as? NSNotification else {return}
-        currentUIEnabled = notification.object as? Bool
-        
-        updateWindowAppearance()
-    }
-    
-    override func viewWillAppear() {
-        updateContribution()
-        updateWindowAppearance()
     }
     
     // contributionを更新
@@ -141,18 +141,30 @@ class ContributionViewController: NSViewController {
         setWindowAppearance(window: self.view.window, hiddenMode: !(currentUIEnabled ?? false))
     }
     
-    override func viewDidAppear() {
-        // 自動で端までスクロールさせる
-        let contentWidth = flowLayout.collectionViewContentSize.width
-        collectionView.scroll(NSPoint(x: contentWidth, y: 0))
+}
+
+// NotificationCenter
+extension ContributionViewController {
+    // Usernameの値が変わったとき
+    @objc func onUserNameChanged(_ sender: Any?){
+        // 送られてきたオブジェクトをキャストしてcontribution更新
+        guard let notification = sender as? NSNotification else {return}
+        currentUserName = notification.object as? String
+     
+        updateContribution()
     }
     
-    override func viewDidDisappear() {
-        // TODO: ここでinvalidateするとウィンドウレベル変えた時にタイマ止まっちゃいます
-        self.updateTimer?.invalidate()
+    // UserIntearctionEnabledの値が変わったとき
+    @objc func onUserInteractionModeChanged(_ sender: Any?){
+        // 送られてきたオブジェクトをキャストしてウィンドウ更新
+        guard let notification = sender as? NSNotification else {return}
+        currentUIEnabled = notification.object as? Bool
+        
+        updateWindowAppearance()
     }
 }
 
+// 進捗ビュー
 extension ContributionViewController: NSCollectionViewDataSource {
     
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {

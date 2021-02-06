@@ -18,10 +18,11 @@ class WindowManager {
     private var contributionConfigurations: [ContributionViewConfiguration] = []
     
     init() {
-        // UDから構成をリストア
-        restoreWindowConfigurations()
-        
-        // 構成に従いウィンドウを作って表示
+        // initialize
+    }
+    
+    // 構成をもとにウィンドウを表示
+    func showStoredWindows(){
         for config in contributionConfigurations{
             let window = generateContributionWindow(config: config)
             let windowController = NSWindowController(window: window)
@@ -43,7 +44,7 @@ class WindowManager {
     }
     
     // UDから前回起動時のウィンドウ構成を取得
-    private func restoreWindowConfigurations(){
+    func restoreWindowConfigurations(){
         guard let storedConfigurations = userdefaults.codable(forKey: .StoredConfigurations, type: StoredContributionViewConfigurations()) else{return}
         
         contributionConfigurations = storedConfigurations.configurations
@@ -57,12 +58,13 @@ class WindowManager {
         // それぞれのViewControllerからconfigを抽出
         var configurations: [ContributionViewConfiguration] = []
         for window in activeContributionWindows {
-            guard let viewController = window.contentViewController as? ContributionViewController else {continue}
-            configurations.append(viewController.config)
+            guard let viewController = window.contentViewController as? ContributionViewController, let config = viewController.config else {continue}
+            configurations.append(config)
         }
         
         // configからStoredContributionViewConfigurationsを作って保存
         userdefaults.setStruct(StoredContributionViewConfigurations(configurations: configurations), forKey: .StoredConfigurations)
+        print("Window Configuration has been saved!")
     }
     
     // NSApplicationからアクティブなContributionWindowを取得

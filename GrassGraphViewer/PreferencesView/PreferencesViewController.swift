@@ -7,14 +7,14 @@
 
 import Cocoa
 
-class PreferencesViewController: NSViewController, NSTableViewDataSource {
+class PreferencesViewController: NSViewController {
     
     private let userdefaults = UserDefaults.standard
     private let application = NSApplication.shared
     
     private let windowManager = WindowManager()
     var currentContributionWindows: [ContributionWindow] = []
-    private var currentSelectedConfigutration = ContributionViewConfiguration()
+    private var currentSelectedConfigutration: ContributionViewConfiguration? = nil
     
     // configベースで編集した方が良さそう
     private var currentUserName: String?
@@ -61,11 +61,35 @@ class PreferencesViewController: NSViewController, NSTableViewDataSource {
         // (Rootviewcontrollerとして起動したときに隠すため)
         // TODO: isVisibleをPreferencesで変えられるように
         if(!isVisible){
-            self.view.window?.close()
+            self.view.window?.animationBehavior = .none
+            self.view.window?.orderOut(self)
             return
         }
     }
     
+    override func viewWillDisappear() {
+        if(isVisible){
+            updateAllStoredData()
+        }
+    }
+    
+    // ウィンドウリストビューを更新
+    func updateWindowListView(){
+        currentContributionWindows = windowManager.getActiveContributionWindows()
+        windowListView.reloadData()
+    }
+    
+    // 変更をUDに反映
+    func updateAllStoredData(){
+        userdefaults.setValue(currentUserName, forKey: .UserName)
+        userdefaults.setValue(currentUIEnabled, forKey: .UIEnabled)
+        userdefaults.setValue(currentUserLastFetchDate, forKey: .LastFetched)
+        windowManager.updateStoredConfiguration()
+    }
+}
+
+// UIアクション
+extension PreferencesViewController {
     // ユーザ名フィールドに入力があったとき
     @IBAction func onChangeUsernameField(_ sender: NSTextField) {
         let newName = sender.stringValue
@@ -165,31 +189,18 @@ class PreferencesViewController: NSViewController, NSTableViewDataSource {
         
         updateWindowListView()
     }
-    
-    // ウィンドウリストのdatasource
+
+}
+
+// ウィンドウリストのdatasource
+extension PreferencesViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         return self.currentContributionWindows.count
     }
+    
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         guard let config = (self.currentContributionWindows[row].contentViewController as? ContributionViewController)?.config, config.title != "" else {return "Untitled"}
         return config.title
     }
-    
-    // ウィンドウリストビューを更新
-    func updateWindowListView(){
-        currentContributionWindows = windowManager.getActiveContributionWindows()
-        windowListView.reloadData()
-    }
-    
-    // 変更をUDに反映
-    func updateAllStoredData(){
-        userdefaults.setValue(currentUserName, forKey: .UserName)
-        userdefaults.setValue(currentUIEnabled, forKey: .UIEnabled)
-        userdefaults.setValue(currentUserLastFetchDate, forKey: .LastFetched)
-        windowManager.updateStoredConfiguration()
-    }
-    
-    deinit {
-        updateAllStoredData()
-    }
 }
+
