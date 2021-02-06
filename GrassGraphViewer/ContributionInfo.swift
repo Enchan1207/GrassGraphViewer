@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ContributionInfo: Comparable {
+struct ContributionInfo: Comparable, Codable {
     static func < (lhs: ContributionInfo, rhs: ContributionInfo) -> Bool {
         return lhs.date < rhs.date
     }

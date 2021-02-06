@@ -12,6 +12,8 @@
 		9E23921425CCCDC70080E6AD /* UserDefaultsExtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23921325CCCDC70080E6AD /* UserDefaultsExtTests.swift */; };
 		9E7099D825CD10810083B59D /* PreferencesCutsomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7099D725CD10810083B59D /* PreferencesCutsomView.swift */; };
 		9E7099EE25CE0BD20083B59D /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7099ED25CE0BD20083B59D /* PreferencesWindow.swift */; };
+		9E7099F625CE38A30083B59D /* DateFormatUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7099F525CE38A30083B59D /* DateFormatUtil.swift */; };
+		9E7099FB25CE8D240083B59D /* DateFormatUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7099FA25CE8D240083B59D /* DateFormatUtilTests.swift */; };
 		9E9FD30825C79DFE0053DC25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD30725C79DFE0053DC25 /* AppDelegate.swift */; };
 		9E9FD30A25C79DFE0053DC25 /* ContributionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD30925C79DFE0053DC25 /* ContributionViewController.swift */; };
 		9E9FD30C25C79E000053DC25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD30B25C79E000053DC25 /* Assets.xcassets */; };
@@ -54,6 +56,8 @@
 		9E23921325CCCDC70080E6AD /* UserDefaultsExtTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtTests.swift; sourceTree = "<group>"; };
 		9E7099D725CD10810083B59D /* PreferencesCutsomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesCutsomView.swift; sourceTree = "<group>"; };
 		9E7099ED25CE0BD20083B59D /* PreferencesWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
+		9E7099F525CE38A30083B59D /* DateFormatUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatUtil.swift; sourceTree = "<group>"; };
+		9E7099FA25CE8D240083B59D /* DateFormatUtilTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatUtilTests.swift; sourceTree = "<group>"; };
 		9E9FD30425C79DFE0053DC25 /* GrassGraphViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrassGraphViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E9FD30725C79DFE0053DC25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E9FD30925C79DFE0053DC25 /* ContributionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +136,7 @@
 				9E9FD54525CBF14A0053DC25 /* ContributionViewConfiguration.swift */,
 				9E9FD50625CBBAFE0053DC25 /* ContributionInfo.swift */,
 				9E9FD53125CBE6340053DC25 /* UserDefaultsExt.swift */,
+				9E7099F525CE38A30083B59D /* DateFormatUtil.swift */,
 				9E9FD30D25C79E000053DC25 /* Main.storyboard */,
 				9E9FD4D925CB7C740053DC25 /* ContributionView */,
 				9E9FD4CA25CB5AF70053DC25 /* PreferencesView */,
@@ -150,6 +155,7 @@
 			children = (
 				9E9FD31A25C79E000053DC25 /* GrassGraphViewerTests.swift */,
 				9E23921325CCCDC70080E6AD /* UserDefaultsExtTests.swift */,
+				9E7099FA25CE8D240083B59D /* DateFormatUtilTests.swift */,
 				9E9FD31C25C79E000053DC25 /* Info.plist */,
 			);
 			path = GrassGraphViewerTests;
@@ -321,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E9FD49E25C982E80053DC25 /* ContributionXMLParser.swift in Sources */,
+				9E7099F625CE38A30083B59D /* DateFormatUtil.swift in Sources */,
 				9E9FD4A325C982EF0053DC25 /* WindowAppearanceExt.swift in Sources */,
 				9E9FD30A25C79DFE0053DC25 /* ContributionViewController.swift in Sources */,
 				9E9FD53225CBE6340053DC25 /* UserDefaultsExt.swift in Sources */,
@@ -341,6 +348,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E7099FB25CE8D240083B59D /* DateFormatUtilTests.swift in Sources */,
 				9E23921425CCCDC70080E6AD /* UserDefaultsExtTests.swift in Sources */,
 				9E9FD31B25C79E000053DC25 /* GrassGraphViewerTests.swift in Sources */,
 			);
