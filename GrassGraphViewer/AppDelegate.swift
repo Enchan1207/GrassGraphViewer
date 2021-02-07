@@ -61,6 +61,7 @@ extension AppDelegate{
     @objc func openPreferences(){
         preferencesWindowController.showWindow(self)
         preferencesWindowController.window?.orderFront(self)
+        preferencesWindowController.window?.orderFrontRegardless()
     }
     
     // 「UserDefaultsを初期化して終了」

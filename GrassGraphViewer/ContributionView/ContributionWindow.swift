@@ -22,6 +22,7 @@ class ContributionWindow: NSWindow{
         
         // ウィンドウ表示モードに依存しない設定はここでやっちゃう
         self.contentViewController = contentViewController
+
         self.tabbingMode = .disallowed
         self.isRestorable = false
         self.hasShadow = false

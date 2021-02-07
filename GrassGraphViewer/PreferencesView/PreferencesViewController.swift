@@ -10,11 +10,9 @@ import Cocoa
 class PreferencesViewController: NSViewController {
 
     // UI部品
-    @IBOutlet weak var UIEnabledCheckbox: NSButton!
     @IBOutlet weak var usernameField: NSTextField!
     @IBOutlet weak var fetchStatLabel: NSTextField!
     @IBOutlet weak var loadCircle: NSProgressIndicator!
-    @IBOutlet weak var applyButton: NSButton!
     @IBOutlet weak var windowListView: NSTableView!
     
     // properties
@@ -34,14 +32,12 @@ class PreferencesViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // UDから値を取得
-        self.currentVisibility = userdefaults.bool(forKey: .WindowVisibility) ?? true
-
         // windowListView初期化
         self.windowListView.dataSource = self
     }
     
     override func viewWillAppear() {
+        self.view.window?.delegate = self
         loadCircle.isHidden = true
         
         // 現在アクティブなウィンドウのリストを表示
@@ -49,6 +45,9 @@ class PreferencesViewController: NSViewController {
     }
     
     override func viewDidAppear() {
+        // 全ウィンドウに表示要求
+        notificationCenter.post(name: .kWindowVisibilityModifiedNotification, object: true)
+        
         // 表示フラグが立っていなければ表示しない
         // (Rootviewcontrollerとして起動したときに隠すため)
         // TODO: isVisibleをPreferencesで変えられるように
@@ -74,7 +73,6 @@ class PreferencesViewController: NSViewController {
     
     // 変更をUDに反映
     func updateConfigurations(){
-        userdefaults.setValue(currentVisibility, forKey: .WindowVisibility)
         windowManager.updateStoredConfiguration()
     }
 }
@@ -118,21 +116,6 @@ extension PreferencesViewController {
         }
     }
     
-    // UIEnabledがクリックされたとき
-    @IBAction func onCheckUIEnabled(_ sender: NSButton) {
-        let checkStat = sender.intValue == 1 ? true : false
-        currentVisibility = checkStat
-        // 通知して
-        notificationCenter.post(name: .kWindowVisibilityModifiedNotification, object: currentVisibility)
-        // UDに反映
-        userdefaults.setValue(currentVisibility, forKey: .WindowVisibility)
-    }
-    
-    // 「変更を確定」ボタン
-    @IBAction func onTapApplyChanges(_ sender: Any) {
-        updateConfigurations()
-    }
-    
     // ウィンドウリストの項目が選択されたとき
     @IBAction func didSelectRowAt(_ sender: NSTableView){
         let selectedRowIndex = sender.selectedRow
@@ -156,7 +139,7 @@ extension PreferencesViewController {
         // ウィンドウ追加
         case 0:
             let newConfig = ContributionConfig(userName: "User", lastFetchDate: Date(), contributions: [])
-            let newWindow = windowManager.generateContributionWindow(config: newConfig)
+            let newWindow = windowManager.generateContributionWindow(config: newConfig, displayMode: .Foreground)
             let windowController = NSWindowController(window: newWindow)
             windowController.showWindow(self)
 
@@ -187,5 +170,15 @@ extension PreferencesViewController: NSTableViewDataSource {
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         guard let config = (self.currentContributionWindows[row].contentViewController as? ContributionViewController)?.config, config.userName != "" else {return "Untitled"}
         return config.userName
+    }
+}
+
+// NSWindowDelegate
+extension PreferencesViewController: NSWindowDelegate {
+    
+    func windowWillClose(_ notification: Notification) {
+        // ウィンドウを戻し、configを保存
+        notificationCenter.post(name: .kWindowVisibilityModifiedNotification, object: false)
+        updateConfigurations()
     }
 }

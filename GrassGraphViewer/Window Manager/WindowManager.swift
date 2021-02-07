@@ -21,25 +21,22 @@ class WindowManager {
     // 構成をもとにウィンドウを生成し、表示
     func showStoredWindows(){
         for config in configurations{
-            let window = generateContributionWindow(config: config)
+            let window = generateContributionWindow(config: config, displayMode: .Background)
             let windowController = NSWindowController(window: window)
             windowController.showWindow(self)
         }
     }
     
     // ContributionConfigからウィンドウを作る
-    func generateContributionWindow(config: ContributionConfig) -> ContributionWindow{
+    func generateContributionWindow(config: ContributionConfig, displayMode: ContributionWindow.DisplayMode) -> ContributionWindow{
         // VC呼び出してconfig割り当て
         guard let contributionViewController = contributionViewStoryboard.instantiateInitialController() as? ContributionViewController else{
             fatalError("Couldn't generate virewController instance!")
         }
         contributionViewController.config = config
         
-        // visibilityを取得して
-        let visibility = userdefaults.bool(forKey: .WindowVisibility) ?? true
-        
         // Window生成
-        let window = ContributionWindow(contentViewController: contributionViewController, displayMode: visibility ? .Foreground : .Background)
+        let window = ContributionWindow(contentViewController: contributionViewController, displayMode: displayMode)
         return window
     }
     
