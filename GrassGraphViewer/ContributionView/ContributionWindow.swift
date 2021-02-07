@@ -12,17 +12,16 @@ class ContributionWindow: NSWindow{
     public let windowIdentifier: String
     
     // 透明ウィンドウをよしなに作ってくれる
-    init(contentViewController: ContributionViewController){
+    init(contentViewController: ContributionViewController, identifier: String? = nil){
         let contentRect = contentViewController.view.frame
         let styleMask: NSWindow.StyleMask = [.titled, .resizable, .borderless]
         let backingType: NSWindow.BackingStoreType = .buffered
-        self.windowIdentifier = NSUUID().uuidString
+        self.windowIdentifier = identifier ?? NSUUID().uuidString
         
         super.init(contentRect: contentRect, styleMask: styleMask, backing: backingType, defer: false)
         
         // ウィンドウ表示モードに依存しない設定はここでやっちゃう
         self.contentViewController = contentViewController
-
         self.tabbingMode = .disallowed
         self.isRestorable = false
         self.hasShadow = false
@@ -39,8 +38,8 @@ class ContributionWindow: NSWindow{
     }
     
     // displaymode渡してもよき(UDからデータ引っ張ってきた時用)
-    convenience init(contentViewController: ContributionViewController, displayMode: DisplayMode) {
-        self.init(contentViewController: contentViewController)
+    convenience init(contentViewController: ContributionViewController, identifier: String? = nil, displayMode: DisplayMode) {
+        self.init(contentViewController: contentViewController, identifier: identifier)
         self.setDisplayMode(displayMode)
     }
     

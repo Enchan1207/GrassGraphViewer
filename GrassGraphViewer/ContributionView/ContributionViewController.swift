@@ -41,7 +41,10 @@ class ContributionViewController: NSViewController {
         updateContributionUI()
         
         // ウィンドウIDを設定
-        self.windowIdentifier = (self.view.window as? ContributionWindow)?.windowIdentifier
+        if let window = self.view.window as? ContributionWindow{
+            self.windowIdentifier = window.windowIdentifier
+        }
+        
     }
     
     override func viewDidAppear() {
@@ -129,6 +132,7 @@ extension ContributionViewController {
         
         // ウィンドウ表示設定に回す
         (self.view.window as? ContributionWindow)?.setDisplayMode(visibility ? .Foreground : .Background)
+        updateContributionUI()
     }
 }
 

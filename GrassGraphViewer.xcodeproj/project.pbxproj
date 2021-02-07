@@ -29,7 +29,7 @@
 		9E9FD50725CBBAFE0053DC25 /* ContributionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD50625CBBAFE0053DC25 /* ContributionInfo.swift */; };
 		9E9FD52725CBDF9C0053DC25 /* Contribution.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD52625CBDF9C0053DC25 /* Contribution.storyboard */; };
 		9E9FD53225CBE6340053DC25 /* UserDefaultsExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD53125CBE6340053DC25 /* UserDefaultsExt.swift */; };
-		9E9FD54625CBF14A0053DC25 /* ContributionViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD54525CBF14A0053DC25 /* ContributionViewConfiguration.swift */; };
+		9E9FD54625CBF14A0053DC25 /* Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD54525CBF14A0053DC25 /* Configurations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,7 +79,7 @@
 		9E9FD50625CBBAFE0053DC25 /* ContributionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionInfo.swift; sourceTree = "<group>"; };
 		9E9FD52625CBDF9C0053DC25 /* Contribution.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Contribution.storyboard; sourceTree = "<group>"; };
 		9E9FD53125CBE6340053DC25 /* UserDefaultsExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExt.swift; sourceTree = "<group>"; };
-		9E9FD54525CBF14A0053DC25 /* ContributionViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionViewConfiguration.swift; sourceTree = "<group>"; };
+		9E9FD54525CBF14A0053DC25 /* Configurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,7 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				9E9FD30725C79DFE0053DC25 /* AppDelegate.swift */,
-				9E9FD54525CBF14A0053DC25 /* ContributionViewConfiguration.swift */,
+				9E9FD54525CBF14A0053DC25 /* Configurations.swift */,
 				9E9FD50625CBBAFE0053DC25 /* ContributionInfo.swift */,
 				9E9FD53125CBE6340053DC25 /* UserDefaultsExt.swift */,
 				9E9FD4BF25CADCBF0053DC25 /* NotificationKeys.swift */,
@@ -342,7 +342,7 @@
 				9E9FD50725CBBAFE0053DC25 /* ContributionInfo.swift in Sources */,
 				9E9FD4B325CAD5D90053DC25 /* PreferencesViewController.swift in Sources */,
 				9E23920C25CCC83C0080E6AD /* ContributionWindow.swift in Sources */,
-				9E9FD54625CBF14A0053DC25 /* ContributionViewConfiguration.swift in Sources */,
+				9E9FD54625CBF14A0053DC25 /* Configurations.swift in Sources */,
 				9E7099EE25CE0BD20083B59D /* PreferencesWindow.swift in Sources */,
 				9E9FD4C025CADCBF0053DC25 /* NotificationKeys.swift in Sources */,
 			);
