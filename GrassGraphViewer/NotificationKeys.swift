@@ -8,6 +8,6 @@
 import Foundation
 
 extension Notification.Name {
-    public static let kUserInteractionEnabledNotification = Notification.Name("kUserInteractionEnabledNotification")
-    public static let kUserNameChangedNotification = Notification.Name("kUserNameChangedNotification")
+    public static let kWindowVisibilityModifiedNotification = Notification.Name("kWindowVisibilityModifiedNotification")
+    public static let kConfigModifiedNotification = Notification.Name("kConfigModifiedNotification")
 }

@@ -9,7 +9,7 @@ import Foundation
 
 enum UserDefaultsKey: String, CaseIterable {
     case UserName
-    case UIEnabled
+    case WindowVisibility
     case LastFetched
     
     case StoredConfigurations

@@ -701,10 +701,10 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--Preferences-->
+        <!--Contribution-->
         <scene sceneID="ddi-Bb-f1r">
             <objects>
-                <controllerPlaceholder storyboardName="Preferences" id="eeR-3D-dsn" sceneMemberID="viewController"/>
+                <controllerPlaceholder storyboardName="Contribution" id="eeR-3D-dsn" sceneMemberID="viewController"/>
                 <customObject id="3vF-bf-wXL" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="74" y="547"/>

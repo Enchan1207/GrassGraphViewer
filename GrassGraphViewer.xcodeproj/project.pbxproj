@@ -23,7 +23,6 @@
 		9E9FD34B25C7BFAC0053DC25 /* GrassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD34925C7BFAC0053DC25 /* GrassCell.swift */; };
 		9E9FD34C25C7BFAC0053DC25 /* GrassCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD34A25C7BFAC0053DC25 /* GrassCell.xib */; };
 		9E9FD49E25C982E80053DC25 /* ContributionXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD49D25C982E80053DC25 /* ContributionXMLParser.swift */; };
-		9E9FD4A325C982EF0053DC25 /* WindowAppearanceExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4A225C982EF0053DC25 /* WindowAppearanceExt.swift */; };
 		9E9FD4AE25CAC6600053DC25 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD4AD25CAC6600053DC25 /* Preferences.storyboard */; };
 		9E9FD4B325CAD5D90053DC25 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4B225CAD5D90053DC25 /* PreferencesViewController.swift */; };
 		9E9FD4C025CADCBF0053DC25 /* NotificationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4BF25CADCBF0053DC25 /* NotificationKeys.swift */; };
@@ -74,7 +73,6 @@
 		9E9FD34925C7BFAC0053DC25 /* GrassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrassCell.swift; sourceTree = "<group>"; };
 		9E9FD34A25C7BFAC0053DC25 /* GrassCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GrassCell.xib; sourceTree = "<group>"; };
 		9E9FD49D25C982E80053DC25 /* ContributionXMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContributionXMLParser.swift; sourceTree = "<group>"; };
-		9E9FD4A225C982EF0053DC25 /* WindowAppearanceExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowAppearanceExt.swift; sourceTree = "<group>"; };
 		9E9FD4AD25CAC6600053DC25 /* Preferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
 		9E9FD4B225CAD5D90053DC25 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		9E9FD4BF25CADCBF0053DC25 /* NotificationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationKeys.swift; sourceTree = "<group>"; };
@@ -109,6 +107,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E709A0425CED44A0083B59D /* Window Manager */ = {
+			isa = PBXGroup;
+			children = (
+				9E21842525CD009A003A725A /* WindowManager.swift */,
+			);
+			path = "Window Manager";
+			sourceTree = "<group>";
+		};
 		9E9FD2FB25C79DFE0053DC25 = {
 			isa = PBXGroup;
 			children = (
@@ -136,12 +142,12 @@
 				9E9FD54525CBF14A0053DC25 /* ContributionViewConfiguration.swift */,
 				9E9FD50625CBBAFE0053DC25 /* ContributionInfo.swift */,
 				9E9FD53125CBE6340053DC25 /* UserDefaultsExt.swift */,
+				9E9FD4BF25CADCBF0053DC25 /* NotificationKeys.swift */,
 				9E7099F525CE38A30083B59D /* DateFormatUtil.swift */,
 				9E9FD30D25C79E000053DC25 /* Main.storyboard */,
 				9E9FD4D925CB7C740053DC25 /* ContributionView */,
 				9E9FD4CA25CB5AF70053DC25 /* PreferencesView */,
-				9E9FD4BF25CADCBF0053DC25 /* NotificationKeys.swift */,
-				9E21842525CD009A003A725A /* WindowManager.swift */,
+				9E709A0425CED44A0083B59D /* Window Manager */,
 				9E9FD49D25C982E80053DC25 /* ContributionXMLParser.swift */,
 				9E9FD30B25C79E000053DC25 /* Assets.xcassets */,
 				9E9FD31025C79E000053DC25 /* Info.plist */,
@@ -186,7 +192,6 @@
 			children = (
 				9E23920B25CCC83C0080E6AD /* ContributionWindow.swift */,
 				9E9FD30925C79DFE0053DC25 /* ContributionViewController.swift */,
-				9E9FD4A225C982EF0053DC25 /* WindowAppearanceExt.swift */,
 				9E9FD34925C7BFAC0053DC25 /* GrassCell.swift */,
 				9E9FD34A25C7BFAC0053DC25 /* GrassCell.xib */,
 				9E9FD52625CBDF9C0053DC25 /* Contribution.storyboard */,
@@ -328,7 +333,6 @@
 			files = (
 				9E9FD49E25C982E80053DC25 /* ContributionXMLParser.swift in Sources */,
 				9E7099F625CE38A30083B59D /* DateFormatUtil.swift in Sources */,
-				9E9FD4A325C982EF0053DC25 /* WindowAppearanceExt.swift in Sources */,
 				9E9FD30A25C79DFE0053DC25 /* ContributionViewController.swift in Sources */,
 				9E9FD53225CBE6340053DC25 /* UserDefaultsExt.swift in Sources */,
 				9E9FD30825C79DFE0053DC25 /* AppDelegate.swift in Sources */,

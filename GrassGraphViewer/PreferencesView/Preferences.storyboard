@@ -134,6 +134,14 @@
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zPn-Wu-leu">
+                                                <rect key="frame" x="18" y="119" width="87" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Last Fetched:" id="6CG-QL-e7L">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
                                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yRa-ZF-60K">
                                                 <rect key="frame" x="96" y="143" width="200" height="21"/>
                                                 <constraints>
@@ -148,28 +156,30 @@
                                                     <action selector="onChangeUsernameField:" target="CRo-UX-2fQ" id="zRd-8s-fO9"/>
                                                 </connections>
                                             </textField>
+                                            <progressIndicator wantsLayer="YES" maxValue="100" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="HWt-bi-qBe">
+                                                <rect key="frame" x="301" y="145" width="16" height="16"/>
+                                            </progressIndicator>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MWC-Ol-doh">
-                                                <rect key="frame" x="94" y="117" width="84" height="16"/>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Last fetched:" id="GXI-Xg-Vxn">
+                                                <rect key="frame" x="111" y="119" width="37" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="None" id="GXI-Xg-Vxn">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
-                                            <progressIndicator wantsLayer="YES" maxValue="100" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="HWt-bi-qBe">
-                                                <rect key="frame" x="301" y="145" width="16" height="16"/>
-                                            </progressIndicator>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="yRa-ZF-60K" firstAttribute="centerY" secondItem="eUK-Il-oI5" secondAttribute="centerY" id="6wn-3F-Ru2"/>
                                             <constraint firstItem="eUK-Il-oI5" firstAttribute="leading" secondItem="JXh-AB-4Js" secondAttribute="leading" constant="20" id="AdV-IC-dNz"/>
                                             <constraint firstItem="yRa-ZF-60K" firstAttribute="leading" secondItem="eUK-Il-oI5" secondAttribute="trailing" constant="10" id="Dpe-CY-Xrk"/>
+                                            <constraint firstItem="zPn-Wu-leu" firstAttribute="top" secondItem="eUK-Il-oI5" secondAttribute="bottom" constant="10" id="IwI-ZT-eII"/>
+                                            <constraint firstItem="MWC-Ol-doh" firstAttribute="leading" secondItem="zPn-Wu-leu" secondAttribute="trailing" constant="10" id="Ixs-qL-oBn"/>
                                             <constraint firstItem="eUK-Il-oI5" firstAttribute="top" secondItem="5ZO-iL-MFw" secondAttribute="bottom" constant="10" id="OPb-Uj-MCi"/>
+                                            <constraint firstItem="MWC-Ol-doh" firstAttribute="centerY" secondItem="zPn-Wu-leu" secondAttribute="centerY" id="QgR-gC-byX"/>
                                             <constraint firstItem="HWt-bi-qBe" firstAttribute="centerY" secondItem="yRa-ZF-60K" secondAttribute="centerY" id="Z99-Ah-aU0"/>
                                             <constraint firstItem="5ZO-iL-MFw" firstAttribute="leading" secondItem="JXh-AB-4Js" secondAttribute="leading" constant="5" id="b31-Dy-Khm"/>
                                             <constraint firstItem="5ZO-iL-MFw" firstAttribute="top" secondItem="JXh-AB-4Js" secondAttribute="top" constant="5" id="cFB-IH-SkE"/>
-                                            <constraint firstItem="MWC-Ol-doh" firstAttribute="top" secondItem="yRa-ZF-60K" secondAttribute="bottom" constant="10" id="fzn-Wn-YuB"/>
-                                            <constraint firstItem="MWC-Ol-doh" firstAttribute="leading" secondItem="yRa-ZF-60K" secondAttribute="leading" id="gL9-NO-ca8"/>
+                                            <constraint firstItem="zPn-Wu-leu" firstAttribute="leading" secondItem="eUK-Il-oI5" secondAttribute="leading" id="gCW-Qy-8OB"/>
                                             <constraint firstItem="HWt-bi-qBe" firstAttribute="leading" secondItem="yRa-ZF-60K" secondAttribute="trailing" constant="5" id="rk2-gX-ciE"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>

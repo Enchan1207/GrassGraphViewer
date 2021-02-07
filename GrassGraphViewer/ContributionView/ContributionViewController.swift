@@ -9,63 +9,50 @@ import Cocoa
 
 class ContributionViewController: NSViewController {
 
+    // UI部品
     @IBOutlet weak var backgroundView: NSView!
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var flowLayout: NSCollectionViewFlowLayout!
-    
     @IBOutlet weak var usernameLabel: NSTextField!
     @IBOutlet weak var lastContributionCountLabel: NSTextField!
     @IBOutlet weak var lastContributionDateLabel: NSTextField!
     
-    var config: ContributionViewConfiguration? = nil
+    // properties
+    private let notificationCenter = NotificationCenter.default
+    private let manager: WindowManager = WindowManager()
     
-    private var contributions: [ContributionInfo] = []
-    private var currentMaxContribution: ContributionInfo?
+    public var config: ContributionConfig?
+    private var windowIdentifier: String?
     
-    private let userdefaults = UserDefaults.standard
-    
-    var currentUserName: String?
-    var currentUIEnabled: Bool?
-    
-    var updateTimer: Timer?
+    //* VC lifecycle *//
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // UI設定
+        // UI初期設定
         setupContributionUI()
         
-        // UDから設定値を読み込んで
-        currentUserName = userdefaults.string(forKey: .UserName)
-        currentUIEnabled = userdefaults.bool(forKey: .UIEnabled)
-
-        // 通知センターから設定変更通知を受け取る
-        NotificationCenter.default.addObserver(self, selector: #selector(onUserInteractionModeChanged(_:)), name: .kUserInteractionEnabledNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(onUserNameChanged(_:)), name: .kUserNameChangedNotification, object: nil)
-        
-        // 定期更新を開始
-        // TODO: 更新間隔
-        self.updateTimer = Timer.scheduledTimer(timeInterval: 3600, target: self, selector: #selector(onTimerUpdated), userInfo: nil, repeats: true)
-        
-        // Viewdidloadでconfigいじっても多分うまくいかんで
+        // config変更通知を受け取る
+        notificationCenter.addObserver(self, selector: #selector(onModifyConfig(_:)), name: .kConfigModifiedNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(onModifyVisibility(_:)), name: .kWindowVisibilityModifiedNotification, object: nil)
     }
     
     override func viewWillAppear() {
-        // ビューを更新し、ウィンドウ表示レベルをいじる
-        updateContribution()
-        updateWindowAppearance()
+        // UI更新
+        updateContributionUI()
+        
+        // ウィンドウIDを設定
+        self.windowIdentifier = (self.view.window as? ContributionWindow)?.windowIdentifier
     }
     
     override func viewDidAppear() {
-        // 自動で端までスクロールさせる
+        // 自動で端までスクロール
         let contentWidth = flowLayout.collectionViewContentSize.width
         collectionView.scroll(NSPoint(x: contentWidth, y: 0))
     }
     
-    override func viewDidDisappear() {
-        // TODO: ここでinvalidateするとウィンドウレベル変えた時にタイマ止まっちゃいます
-        self.updateTimer?.invalidate()
+    deinit {
+        notificationCenter.removeObserver(self, name: .kConfigModifiedNotification, object: nil)
+        notificationCenter.removeObserver(self, name: .kWindowVisibilityModifiedNotification, object: nil)
     }
     
     // UI初期設定
@@ -86,99 +73,89 @@ class ContributionViewController: NSViewController {
         flowLayout.itemSize = NSSize(width: 11, height: 11)
     }
     
-    // 定期更新時の処理
-    @objc func onTimerUpdated(){
-        // contributionを更新して
-        print("Timer updated!")
-        updateContribution()
-        
-        // 自動で端までスクロールし
-        let contentWidth = flowLayout.collectionViewContentSize.width
-        collectionView.scroll(NSPoint(x: contentWidth, y: 0))
-        
-        // UDに反映
-        let formatter = DateFormatter()
-        formatter.dateFormat = "y/M/d HH:mm:ss"
-        userdefaults.setValue(formatter.string(from: Date()), forKey: .LastFetched)
+    // configをもとにUI更新
+    func updateContributionUI(){
+        guard let config = self.config else{return}
+        usernameLabel.stringValue = config.userName
+        if let lastContribution = config.contributions.last{
+            lastContributionDateLabel.stringValue = DateFormatter.localizedString(from: lastContribution.date, dateStyle: .short, timeStyle: .none)
+            lastContributionCountLabel.stringValue = String(lastContribution.contributionCount)
+        }
+        let userName = config.userName
+        self.view.window?.title = "\(userName)'s Contribution Graph"
+        collectionView.reloadData()
     }
     
-    // contributionを更新
-    func updateContribution(){
-        // パーサでデータを取得
-        if let currentUserName = currentUserName{
-            let parser = ContributionXMLParser(userName: currentUserName)
-            do {
-                try parser?.fetchContributions(completion: { (contributions) in
-                    // 草を生やして
-                    let sortedContributions = contributions.sorted()
-                    self.contributions = sortedContributions
-                    self.currentMaxContribution = sortedContributions.max(by: { (lhs, rhs) -> Bool in
-                        return lhs.contributionCount < rhs.contributionCount
-                    })!
-                    
-                    // UIに反映
-                    if let lastContribution = contributions.last{
-                        self.lastContributionCountLabel.stringValue = "\( lastContribution.contributionCount)"
-                        let formatter = DateFormatter()
-                        formatter.dateFormat = "y/M/d"
-                        self.lastContributionDateLabel.stringValue = "(At: \(formatter.string(from: lastContribution.date)))"
-                        self.usernameLabel.stringValue = currentUserName
-                    }
-                    // タイトル設定
-                    self.view.window?.title = "\(self.currentUserName!)'s progress graph"
-                    self.collectionView.reloadData()
-                })
-            } catch {
-                print(error.localizedDescription)
-                self.contributions = .init(repeating: ContributionInfo(date: Date(), contributionCount: 0, level: 0), count: 365)
-                self.collectionView.reloadData()
+    // ContributionGraph更新
+    func updateContributionGraph(){
+        // パーサを作って
+        guard let userName = config?.userName else {return}
+        guard let parser = ContributionXMLParser(userName: userName) else {return}
+        
+        // フェッチ
+        do {
+            try parser.fetchContributions { (contributions) in
+                self.config?.contributions = contributions
+                
+                // 成功したらUI更新
+                self.updateContributionUI()
             }
+        } catch {
+            print(error)
         }
     }
     
-    // ウィンドウの表示モードを更新
-    func updateWindowAppearance(){
-        setWindowAppearance(window: self.view.window, hiddenMode: !(currentUIEnabled ?? false))
-    }
-    
 }
 
-// NotificationCenter
+// Notification
 extension ContributionViewController {
-    // Usernameの値が変わったとき
-    @objc func onUserNameChanged(_ sender: Any?){
-        // 送られてきたオブジェクトをキャストしてcontribution更新
-        guard let notification = sender as? NSNotification else {return}
-        currentUserName = notification.object as? String
-     
-        updateContribution()
+    // config変更通知を受け取ったとき
+    @objc func onModifyConfig(_ notification: Notification){
+        // notificationからobjectを受け取って変換し
+        guard let (targetWindowID, newConfig) = notification.object as? (String, ContributionConfig) else {return}
+        
+        // 自分宛に送信されたものなら
+        if(targetWindowID == self.windowIdentifier){
+            // configを割り当てて更新
+            self.config = newConfig
+            self.updateContributionUI()
+        }
     }
     
-    // UserIntearctionEnabledの値が変わったとき
-    @objc func onUserInteractionModeChanged(_ sender: Any?){
-        // 送られてきたオブジェクトをキャストしてウィンドウ更新
-        guard let notification = sender as? NSNotification else {return}
-        currentUIEnabled = notification.object as? Bool
+    // visibility変更通知を受け取ったとき
+    @objc func onModifyVisibility(_ notification: Notification){
+        // notificationからobjectを受け取って変換し
+        guard let visibility = notification.object as? Bool else {return}
         
-        updateWindowAppearance()
+        // ウィンドウ表示設定に回す
+        (self.view.window as? ContributionWindow)?.setDisplayMode(visibility ? .Foreground : .Background)
     }
 }
 
-// 進捗ビュー
-extension ContributionViewController: NSCollectionViewDataSource {
-    
+// CollectionViewDataSource
+extension ContributionViewController: NSCollectionViewDataSource{
+    // セル数
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.contributions.count
+        return (self.config?.contributions.count) ?? 0
     }
     
+    // 各セルに表示する内容
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        
-        let contribution = self.contributions[indexPath[1]]
-        let formatter = DateFormatter()
-        formatter.dateFormat = "y/M/d"
-        
         let item = collectionView.makeItem(withIdentifier: .init("grass"), for: indexPath) as! GrassCell
-        item.contribution = contribution
+        
+        if let contribution = self.config?.contributions[indexPath[1]]{
+            // 色指定
+            if #available(OSX 10.13, *) {
+                let itemColorName = "GrassColor/Level\(contribution.level)"
+                item.backgroundColor = NSColor(named: itemColorName)
+                item.borderColor = NSColor(named: "GrassColor/Border")
+            } else {
+                // TODO: 対応してなければHSBでそれっぽいのを作る
+                item.backgroundColor = .green
+                item.borderColor = .systemGray
+            }
+        }
+        
         return item
     }
 }

@@ -9,18 +9,19 @@ import Cocoa
 
 class ContributionWindow: NSWindow{
     
+    public let windowIdentifier: String
+    
     // 透明ウィンドウをよしなに作ってくれる
     init(contentViewController: ContributionViewController){
         let contentRect = contentViewController.view.frame
         let styleMask: NSWindow.StyleMask = [.titled, .resizable, .borderless]
         let backingType: NSWindow.BackingStoreType = .buffered
+        self.windowIdentifier = NSUUID().uuidString
         
         super.init(contentRect: contentRect, styleMask: styleMask, backing: backingType, defer: false)
         
         // ウィンドウ表示モードに依存しない設定はここでやっちゃう
         self.contentViewController = contentViewController
-        let userName = contentViewController.config?.userName ?? "Unknown"
-        self.title = "\(userName)'s Contribution Graph"
         self.tabbingMode = .disallowed
         self.isRestorable = false
         self.hasShadow = false
@@ -36,9 +37,16 @@ class ContributionWindow: NSWindow{
         self.backgroundColor = backgroundViewColor
     }
     
+    // displaymode渡してもよき(UDからデータ引っ張ってきた時用)
     convenience init(contentViewController: ContributionViewController, displayMode: DisplayMode) {
         self.init(contentViewController: contentViewController)
         self.setDisplayMode(displayMode)
+    }
+    
+    // このウィンドウが持つVCのConfigを取得
+    func getContributionConfig() -> ContributionConfig? {
+        guard let contributionViewController = self.contentViewController as? ContributionViewController else { return nil }
+        return contributionViewController.config
     }
     
     // ウィンドウ表示モードの切り替え
@@ -55,14 +63,8 @@ class ContributionWindow: NSWindow{
         }
         self.ignoresMouseEvents = isHiddenMode
         
-        // ウィンドウ表示位置設定
-        let windowLevelKey: CGWindowLevelKey
-        if(isHiddenMode){
-            windowLevelKey = .desktopIconWindow
-        }else{
-            windowLevelKey = .normalWindow
-        }
-        
+        // ウィンドウ表示位置(z軸)設定
+        let windowLevelKey: CGWindowLevelKey = isHiddenMode ? .desktopIconWindow : .normalWindow
         self.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(windowLevelKey)))
     }
     

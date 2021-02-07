@@ -8,21 +8,8 @@
 import Cocoa
 
 class PreferencesViewController: NSViewController {
-    
-    private let userdefaults = UserDefaults.standard
-    private let application = NSApplication.shared
-    
-    private let windowManager = WindowManager()
-    var currentContributionWindows: [ContributionWindow] = []
-    private var currentSelectedConfigutration: ContributionViewConfiguration? = nil
-    
-    // configベースで編集した方が良さそう
-    private var currentUserName: String?
-    private var currentUIEnabled: Bool?
-    private var currentUserLastFetchDate: Date?
-    
-    var isVisible: Bool = false
-    
+
+    // UI部品
     @IBOutlet weak var UIEnabledCheckbox: NSButton!
     @IBOutlet weak var usernameField: NSTextField!
     @IBOutlet weak var fetchStatLabel: NSTextField!
@@ -30,29 +17,34 @@ class PreferencesViewController: NSViewController {
     @IBOutlet weak var applyButton: NSButton!
     @IBOutlet weak var windowListView: NSTableView!
     
+    // properties
+    private let userdefaults = UserDefaults.standard
+    private let application = NSApplication.shared
+    private let notificationCenter = NotificationCenter.default
+    private let windowManager = WindowManager()
+    
+    private var currentVisibility: Bool = true
+    private var currentContributionWindows: [ContributionWindow] = []
+    private var currentSelectedWindow: ContributionWindow?
+    
+    var isVisible: Bool = false
+    
+    //* VC lifecycle *//
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // NSUserdefaultsから値を取得
-        self.currentUserName = userdefaults.string(forKey: .UserName)
-        self.currentUIEnabled = userdefaults.bool(forKey: .UIEnabled)
-        self.currentUserLastFetchDate = userdefaults.date(forKey: .LastFetched)
-        
+        // UDから値を取得
+        self.currentVisibility = userdefaults.bool(forKey: .WindowVisibility) ?? true
+
         // windowListView初期化
         self.windowListView.dataSource = self
     }
     
     override func viewWillAppear() {
-        // UIに反映
-        usernameField.stringValue = self.currentUserName ?? ""
-        UIEnabledCheckbox.intValue = (self.currentUIEnabled ?? false) ? 1 : 0
-        let formatter = DateFormatter()
-        formatter.dateFormat = "y/M/d hh:mm:ss"
-        formatter.timeZone = .autoupdatingCurrent
-        fetchStatLabel.stringValue = "Last Fetched: \(formatter.string(from: currentUserLastFetchDate ?? Date()))"
         loadCircle.isHidden = true
         
-        // 現在開いているContributionウィンドウを表示
+        // 現在アクティブなウィンドウのリストを表示
         updateWindowListView()
     }
     
@@ -65,11 +57,12 @@ class PreferencesViewController: NSViewController {
             self.view.window?.orderOut(self)
             return
         }
+        
     }
     
     override func viewWillDisappear() {
         if(isVisible){
-            updateAllStoredData()
+            updateConfigurations()
         }
     }
     
@@ -80,10 +73,8 @@ class PreferencesViewController: NSViewController {
     }
     
     // 変更をUDに反映
-    func updateAllStoredData(){
-        userdefaults.setValue(currentUserName, forKey: .UserName)
-        userdefaults.setValue(currentUIEnabled, forKey: .UIEnabled)
-        userdefaults.setValue(currentUserLastFetchDate, forKey: .LastFetched)
+    func updateConfigurations(){
+        userdefaults.setValue(currentVisibility, forKey: .WindowVisibility)
         windowManager.updateStoredConfiguration()
     }
 }
@@ -92,61 +83,54 @@ class PreferencesViewController: NSViewController {
 extension PreferencesViewController {
     // ユーザ名フィールドに入力があったとき
     @IBAction func onChangeUsernameField(_ sender: NSTextField) {
+        // 入力値を取得し、編集対象のconfigと違うならフェッチしてみる
         let newName = sender.stringValue
         
-        // UDからフェッチしたデータと違うならフェッチテスト
-        if currentUserName != newName {
+        if(newName != currentSelectedWindow?.getContributionConfig()?.userName){
             fetchStatLabel.stringValue = "Fetching..."
             loadCircle.startAnimation(nil)
             loadCircle.isHidden = false
-            
+
             let parser = ContributionXMLParser(userName: newName)
             do {
-                // TODO: ここでフェッチするだけじゃなくてできればUint配列で保存したい
-                try parser?.fetchContributions(completion: nil)
+                try parser?.fetchContributions(completion: { (contributions) in
+                    // 成功したら新しいConfigを生成し
+                    let newConfig = ContributionConfig(userName: newName, lastFetchDate: Date(), contributions: contributions)
+
+                    // 対象のウィンドウにConfigに乗っけて通知
+                    let postObject = (self.currentSelectedWindow?.windowIdentifier, newConfig)
+                    NotificationCenter.default.post(name: .kConfigModifiedNotification, object: postObject)
+                    
+                    // んでUIを更新
+                    DispatchQueue.main.async {
+                        self.loadCircle.stopAnimation(nil)
+                        self.loadCircle.isHidden = true
+                        self.fetchStatLabel.stringValue = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .medium)
+                        self.updateWindowListView()
+                    }
+                })
             } catch {
                 fetchStatLabel.stringValue = "Failed! Please check if you typed valid name."
                 loadCircle.stopAnimation(nil)
                 loadCircle.isHidden = true
                 return
             }
-            
-            // 成功したらラベルをいじって
-            loadCircle.stopAnimation(nil)
-            loadCircle.isHidden = true
-            
-            // FetchDateを更新し
-            currentUserLastFetchDate = Date()
-            let formatter = DateFormatter()
-            formatter.dateFormat = "y/M/d hh:mm:ss"
-            formatter.timeZone = .autoupdatingCurrent
-            fetchStatLabel.stringValue = "Last Fetched: \(formatter.string(from: currentUserLastFetchDate ?? Date()))"
-            
-            // NotificationCenterから通知をぶち投げて
-            currentUserName = newName
-            NotificationCenter.default.post(name: .kUserNameChangedNotification, object: currentUserName)
-            
-            // UDに反映
-            userdefaults.setValue(currentUserName, forKey: .UserName)
-            userdefaults.setValue(currentUserLastFetchDate, forKey: .LastFetched)
         }
     }
     
     // UIEnabledがクリックされたとき
     @IBAction func onCheckUIEnabled(_ sender: NSButton) {
-        let checkStat = Bool(exactly: NSNumber(value: sender.intValue))!
-        currentUIEnabled = checkStat
-        
-        // NotificationCenterから通知をぶち投げる
-        NotificationCenter.default.post(name: .kUserInteractionEnabledNotification, object: currentUIEnabled)
-        
+        let checkStat = sender.intValue == 1 ? true : false
+        currentVisibility = checkStat
+        // 通知して
+        notificationCenter.post(name: .kWindowVisibilityModifiedNotification, object: currentVisibility)
         // UDに反映
-        userdefaults.setValue(currentUIEnabled, forKey: .UIEnabled)
+        userdefaults.setValue(currentVisibility, forKey: .WindowVisibility)
     }
     
     // 「変更を確定」ボタン
     @IBAction func onTapApplyChanges(_ sender: Any) {
-        updateAllStoredData()
+        updateConfigurations()
     }
     
     // ウィンドウリストの項目が選択されたとき
@@ -154,13 +138,13 @@ extension PreferencesViewController {
         let selectedRowIndex = sender.selectedRow
         guard selectedRowIndex != -1 else {return}
         
-        // 選択された項目のウィンドウのconfigを設定し
-        guard let selectedContributionViewController = self.currentContributionWindows[selectedRowIndex].contentViewController as? ContributionViewController else {return}
-        currentSelectedConfigutration = selectedContributionViewController.config
-        print("Selected Items Config: \(currentSelectedConfigutration)")
-        
-        // TODO: 右ペインの内容を更新
-        
+        // 編集対象を選択した項目のconfigに変更
+        self.currentSelectedWindow = self.currentContributionWindows[selectedRowIndex]
+
+        // 右ペインの内容を更新
+        guard let selectedConfig = currentSelectedWindow?.getContributionConfig() else {return}
+        self.usernameField.stringValue = selectedConfig.userName
+        self.fetchStatLabel.stringValue = DateFormatter.localizedString(from: selectedConfig.lastFetchDate, dateStyle: .short, timeStyle: .medium)
     }
     
     // ウィンドウ追加・削除ボタン
@@ -171,7 +155,7 @@ extension PreferencesViewController {
         
         // ウィンドウ追加
         case 0:
-            let newConfig = ContributionViewConfiguration(title: "", userName: "", lastFetchDate: Date(), presentOnLaunch: true)
+            let newConfig = ContributionConfig(userName: "User", lastFetchDate: Date(), contributions: [])
             let newWindow = windowManager.generateContributionWindow(config: newConfig)
             let windowController = NSWindowController(window: newWindow)
             windowController.showWindow(self)
@@ -189,18 +173,19 @@ extension PreferencesViewController {
         
         updateWindowListView()
     }
-
 }
 
-// ウィンドウリストのdatasource
+// TableViewDataSource
 extension PreferencesViewController: NSTableViewDataSource {
+    
+    // セル数
     func numberOfRows(in tableView: NSTableView) -> Int {
         return self.currentContributionWindows.count
     }
     
+    // 各項目に表示する内容 ここではconfigからユーザ名を取得して表示
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        guard let config = (self.currentContributionWindows[row].contentViewController as? ContributionViewController)?.config, config.title != "" else {return "Untitled"}
-        return config.title
+        guard let config = (self.currentContributionWindows[row].contentViewController as? ContributionViewController)?.config, config.userName != "" else {return "Untitled"}
+        return config.userName
     }
 }
-

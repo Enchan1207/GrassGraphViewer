@@ -5,9 +5,6 @@
 //  Created by EnchantCode on 2021/02/05.
 //
 
-/// MARK:
-/// **クソ実装 なんとかしろ**
-
 import Cocoa
 
 class WindowManager {
@@ -15,39 +12,41 @@ class WindowManager {
     private let application = NSApplication.shared
     
     private let contributionViewStoryboard = NSStoryboard(name: "Contribution", bundle: nil)
-    private var contributionConfigurations: [ContributionViewConfiguration] = []
+    private var configurations: [ContributionConfig] = []
     
     init() {
         // initialize
     }
     
-    // 構成をもとにウィンドウを表示
+    // 構成をもとにウィンドウを生成し、表示
     func showStoredWindows(){
-        for config in contributionConfigurations{
+        for config in configurations{
             let window = generateContributionWindow(config: config)
             let windowController = NSWindowController(window: window)
             windowController.showWindow(self)
         }
     }
     
-    // ContributionViewConfigurationからウィンドウ作成
-    func generateContributionWindow(config: ContributionViewConfiguration) -> ContributionWindow{
+    // ContributionConfigからウィンドウを作る
+    func generateContributionWindow(config: ContributionConfig) -> ContributionWindow{
         // VC呼び出してconfig割り当て
         guard let contributionViewController = contributionViewStoryboard.instantiateInitialController() as? ContributionViewController else{
             fatalError("Couldn't generate virewController instance!")
         }
         contributionViewController.config = config
         
+        // visibilityを取得して
+        let visibility = userdefaults.bool(forKey: .WindowVisibility) ?? true
+        
         // Window生成
-        let window = ContributionWindow(contentViewController: contributionViewController)
+        let window = ContributionWindow(contentViewController: contributionViewController, displayMode: visibility ? .Foreground : .Background)
         return window
     }
     
     // UDから前回起動時のウィンドウ構成を取得
     func restoreWindowConfigurations(){
-        guard let storedConfigurations = userdefaults.codable(forKey: .StoredConfigurations, type: StoredContributionViewConfigurations()) else{return}
-        
-        contributionConfigurations = storedConfigurations.configurations
+        guard let storedConfigurations = userdefaults.codable(forKey: .StoredConfigurations, type: ContributionConfigurations()) else{return}
+        configurations = storedConfigurations.configs
     }
     
     // UDに現在のウィンドウ構成を保存
@@ -56,15 +55,14 @@ class WindowManager {
         let activeContributionWindows = self.getActiveContributionWindows()
         
         // それぞれのViewControllerからconfigを抽出
-        var configurations: [ContributionViewConfiguration] = []
+        var configurations: [ContributionConfig] = []
         for window in activeContributionWindows {
             guard let viewController = window.contentViewController as? ContributionViewController, let config = viewController.config else {continue}
             configurations.append(config)
         }
         
-        // configからStoredContributionViewConfigurationsを作って保存
-        userdefaults.setStruct(StoredContributionViewConfigurations(configurations: configurations), forKey: .StoredConfigurations)
-        print("Window Configuration has been saved!")
+        // 保存
+        userdefaults.setStruct(ContributionConfigurations(configurations), forKey: .StoredConfigurations)
     }
     
     // NSApplicationからアクティブなContributionWindowを取得
@@ -72,6 +70,14 @@ class WindowManager {
         let allWindows = application.windows
         let currentActiveContributionWindows = allWindows.filter({return $0.isKind(of: ContributionWindow.self) && $0.isVisible}) as! [ContributionWindow]
         return currentActiveContributionWindows
+    }
+    
+    // ContributionConfigをまとめて管理するだけの構造体 こういうのってどう実装すればいいんですかね?
+    private struct ContributionConfigurations: Codable{
+        let configs: [ContributionConfig]
+        init(_ configs: [ContributionConfig]? = nil){
+            self.configs = configs ?? []
+        }
     }
     
 }
