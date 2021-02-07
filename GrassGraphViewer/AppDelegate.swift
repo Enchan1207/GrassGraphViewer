@@ -15,6 +15,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var preferencesWindowController: NSWindowController!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        
         // ステータスバーボタン初期化
         initStatusBarButton()
         

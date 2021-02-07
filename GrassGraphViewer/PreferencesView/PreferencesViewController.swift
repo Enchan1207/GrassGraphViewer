@@ -47,16 +47,6 @@ class PreferencesViewController: NSViewController {
     override func viewDidAppear() {
         // 全ウィンドウに表示要求
         notificationCenter.post(name: .kWindowVisibilityModifiedNotification, object: true)
-        
-        // 表示フラグが立っていなければ表示しない
-        // (Rootviewcontrollerとして起動したときに隠すため)
-        // TODO: isVisibleをPreferencesで変えられるように
-        if(!isVisible){
-            self.view.window?.animationBehavior = .none
-            self.view.window?.orderOut(self)
-            return
-        }
-        
     }
     
     override func viewWillDisappear() {
