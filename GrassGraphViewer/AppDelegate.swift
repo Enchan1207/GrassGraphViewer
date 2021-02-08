@@ -34,11 +34,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // 環境設定ビューを用意
     func initPreferencesViewController(){
         let preferencesStoryboard = NSStoryboard(name: "Preferences", bundle: nil)
-        guard let preferencesViewcontroller = preferencesStoryboard.instantiateInitialController() as? PreferencesViewController else{
+        guard let preferencesViewcontroller = preferencesStoryboard.instantiateInitialController() as? NSSplitViewController else{
             fatalError("Couldn't generate virewController instance!")
         }
-        preferencesViewcontroller.isVisible = true
-        self.preferencesWindowController = NSWindowController(window: PreferencesWindow(contentViewController: preferencesViewcontroller))
+        self.preferencesWindowController = NSWindowController(window: NSWindow(contentViewController: preferencesViewcontroller))
     }
     
 }

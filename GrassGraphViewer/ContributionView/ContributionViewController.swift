@@ -154,8 +154,8 @@ extension ContributionViewController: NSCollectionViewDataSource{
                 item.backgroundColor = NSColor(named: itemColorName)
                 item.borderColor = NSColor(named: "GrassColor/Border")
             } else {
-                // TODO: 対応してなければHSBでそれっぽいのを作る
-                item.backgroundColor = .green
+                let defaultColorCodes = ["EBEDF0", "9BE9A8", "40C463", "30A14E", "216E39"]
+                item.backgroundColor = NSColor(hexCode: defaultColorCodes[Int(contribution.level)]) ?? .green
                 item.borderColor = .systemGray
             }
         }

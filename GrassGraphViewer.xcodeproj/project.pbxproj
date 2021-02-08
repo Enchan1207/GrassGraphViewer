@@ -11,9 +11,12 @@
 		9E23920C25CCC83C0080E6AD /* ContributionWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23920B25CCC83C0080E6AD /* ContributionWindow.swift */; };
 		9E23921425CCCDC70080E6AD /* UserDefaultsExtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E23921325CCCDC70080E6AD /* UserDefaultsExtTests.swift */; };
 		9E7099D825CD10810083B59D /* PreferencesCutsomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7099D725CD10810083B59D /* PreferencesCutsomView.swift */; };
-		9E7099EE25CE0BD20083B59D /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7099ED25CE0BD20083B59D /* PreferencesWindow.swift */; };
 		9E7099F625CE38A30083B59D /* DateFormatUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7099F525CE38A30083B59D /* DateFormatUtil.swift */; };
 		9E7099FB25CE8D240083B59D /* DateFormatUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7099FA25CE8D240083B59D /* DateFormatUtilTests.swift */; };
+		9E709A4525D008F70083B59D /* WindowDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E709A4425D008F70083B59D /* WindowDetailsViewController.swift */; };
+		9E709A5E25D0F7420083B59D /* PreferenceSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E709A5D25D0F7420083B59D /* PreferenceSplitViewController.swift */; };
+		9E709A7725D11BCC0083B59D /* NSColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E709A7625D11BCC0083B59D /* NSColorExt.swift */; };
+		9E709A7C25D15EEE0083B59D /* NSColorExtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E709A7B25D15EEE0083B59D /* NSColorExtTests.swift */; };
 		9E9FD30825C79DFE0053DC25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD30725C79DFE0053DC25 /* AppDelegate.swift */; };
 		9E9FD30A25C79DFE0053DC25 /* ContributionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD30925C79DFE0053DC25 /* ContributionViewController.swift */; };
 		9E9FD30C25C79E000053DC25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD30B25C79E000053DC25 /* Assets.xcassets */; };
@@ -24,7 +27,7 @@
 		9E9FD34C25C7BFAC0053DC25 /* GrassCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD34A25C7BFAC0053DC25 /* GrassCell.xib */; };
 		9E9FD49E25C982E80053DC25 /* ContributionXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD49D25C982E80053DC25 /* ContributionXMLParser.swift */; };
 		9E9FD4AE25CAC6600053DC25 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD4AD25CAC6600053DC25 /* Preferences.storyboard */; };
-		9E9FD4B325CAD5D90053DC25 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4B225CAD5D90053DC25 /* PreferencesViewController.swift */; };
+		9E9FD4B325CAD5D90053DC25 /* WindowListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4B225CAD5D90053DC25 /* WindowListViewController.swift */; };
 		9E9FD4C025CADCBF0053DC25 /* NotificationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD4BF25CADCBF0053DC25 /* NotificationKeys.swift */; };
 		9E9FD50725CBBAFE0053DC25 /* ContributionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD50625CBBAFE0053DC25 /* ContributionInfo.swift */; };
 		9E9FD52725CBDF9C0053DC25 /* Contribution.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD52625CBDF9C0053DC25 /* Contribution.storyboard */; };
@@ -54,9 +57,12 @@
 		9E23920B25CCC83C0080E6AD /* ContributionWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionWindow.swift; sourceTree = "<group>"; };
 		9E23921325CCCDC70080E6AD /* UserDefaultsExtTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtTests.swift; sourceTree = "<group>"; };
 		9E7099D725CD10810083B59D /* PreferencesCutsomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesCutsomView.swift; sourceTree = "<group>"; };
-		9E7099ED25CE0BD20083B59D /* PreferencesWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
 		9E7099F525CE38A30083B59D /* DateFormatUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatUtil.swift; sourceTree = "<group>"; };
 		9E7099FA25CE8D240083B59D /* DateFormatUtilTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatUtilTests.swift; sourceTree = "<group>"; };
+		9E709A4425D008F70083B59D /* WindowDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowDetailsViewController.swift; sourceTree = "<group>"; };
+		9E709A5D25D0F7420083B59D /* PreferenceSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSplitViewController.swift; sourceTree = "<group>"; };
+		9E709A7625D11BCC0083B59D /* NSColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColorExt.swift; sourceTree = "<group>"; };
+		9E709A7B25D15EEE0083B59D /* NSColorExtTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColorExtTests.swift; sourceTree = "<group>"; };
 		9E9FD30425C79DFE0053DC25 /* GrassGraphViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrassGraphViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E9FD30725C79DFE0053DC25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E9FD30925C79DFE0053DC25 /* ContributionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionViewController.swift; sourceTree = "<group>"; };
@@ -74,7 +80,7 @@
 		9E9FD34A25C7BFAC0053DC25 /* GrassCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GrassCell.xib; sourceTree = "<group>"; };
 		9E9FD49D25C982E80053DC25 /* ContributionXMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContributionXMLParser.swift; sourceTree = "<group>"; };
 		9E9FD4AD25CAC6600053DC25 /* Preferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
-		9E9FD4B225CAD5D90053DC25 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		9E9FD4B225CAD5D90053DC25 /* WindowListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowListViewController.swift; sourceTree = "<group>"; };
 		9E9FD4BF25CADCBF0053DC25 /* NotificationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationKeys.swift; sourceTree = "<group>"; };
 		9E9FD50625CBBAFE0053DC25 /* ContributionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionInfo.swift; sourceTree = "<group>"; };
 		9E9FD52625CBDF9C0053DC25 /* Contribution.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Contribution.storyboard; sourceTree = "<group>"; };
@@ -142,6 +148,7 @@
 				9E9FD54525CBF14A0053DC25 /* Configurations.swift */,
 				9E9FD50625CBBAFE0053DC25 /* ContributionInfo.swift */,
 				9E9FD53125CBE6340053DC25 /* UserDefaultsExt.swift */,
+				9E709A7625D11BCC0083B59D /* NSColorExt.swift */,
 				9E9FD4BF25CADCBF0053DC25 /* NotificationKeys.swift */,
 				9E7099F525CE38A30083B59D /* DateFormatUtil.swift */,
 				9E9FD30D25C79E000053DC25 /* Main.storyboard */,
@@ -161,6 +168,7 @@
 			children = (
 				9E9FD31A25C79E000053DC25 /* GrassGraphViewerTests.swift */,
 				9E23921325CCCDC70080E6AD /* UserDefaultsExtTests.swift */,
+				9E709A7B25D15EEE0083B59D /* NSColorExtTests.swift */,
 				9E7099FA25CE8D240083B59D /* DateFormatUtilTests.swift */,
 				9E9FD31C25C79E000053DC25 /* Info.plist */,
 			);
@@ -180,8 +188,9 @@
 			isa = PBXGroup;
 			children = (
 				9E9FD4AD25CAC6600053DC25 /* Preferences.storyboard */,
-				9E9FD4B225CAD5D90053DC25 /* PreferencesViewController.swift */,
-				9E7099ED25CE0BD20083B59D /* PreferencesWindow.swift */,
+				9E9FD4B225CAD5D90053DC25 /* WindowListViewController.swift */,
+				9E709A4425D008F70083B59D /* WindowDetailsViewController.swift */,
+				9E709A5D25D0F7420083B59D /* PreferenceSplitViewController.swift */,
 				9E7099D725CD10810083B59D /* PreferencesCutsomView.swift */,
 			);
 			path = PreferencesView;
@@ -339,11 +348,13 @@
 				9E21842625CD009A003A725A /* WindowManager.swift in Sources */,
 				9E7099D825CD10810083B59D /* PreferencesCutsomView.swift in Sources */,
 				9E9FD34B25C7BFAC0053DC25 /* GrassCell.swift in Sources */,
+				9E709A5E25D0F7420083B59D /* PreferenceSplitViewController.swift in Sources */,
 				9E9FD50725CBBAFE0053DC25 /* ContributionInfo.swift in Sources */,
-				9E9FD4B325CAD5D90053DC25 /* PreferencesViewController.swift in Sources */,
+				9E9FD4B325CAD5D90053DC25 /* WindowListViewController.swift in Sources */,
+				9E709A4525D008F70083B59D /* WindowDetailsViewController.swift in Sources */,
+				9E709A7725D11BCC0083B59D /* NSColorExt.swift in Sources */,
 				9E23920C25CCC83C0080E6AD /* ContributionWindow.swift in Sources */,
 				9E9FD54625CBF14A0053DC25 /* Configurations.swift in Sources */,
-				9E7099EE25CE0BD20083B59D /* PreferencesWindow.swift in Sources */,
 				9E9FD4C025CADCBF0053DC25 /* NotificationKeys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,6 +363,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E709A7C25D15EEE0083B59D /* NSColorExtTests.swift in Sources */,
 				9E7099FB25CE8D240083B59D /* DateFormatUtilTests.swift in Sources */,
 				9E23921425CCCDC70080E6AD /* UserDefaultsExtTests.swift in Sources */,
 				9E9FD31B25C79E000053DC25 /* GrassGraphViewerTests.swift in Sources */,

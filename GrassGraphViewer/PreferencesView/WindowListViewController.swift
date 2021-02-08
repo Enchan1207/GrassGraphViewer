@@ -1,5 +1,5 @@
 //
-//  PreferencesViewController.swift
+//  WindowListViewController.swift
 //  GrassGraphViewer
 //
 //  Created by EnchantCode on 2021/02/03.
@@ -7,12 +7,9 @@
 
 import Cocoa
 
-class PreferencesViewController: NSViewController {
+class WindowListViewController: NSViewController {
 
     // UI部品
-    @IBOutlet weak var usernameField: NSTextField!
-    @IBOutlet weak var fetchStatLabel: NSTextField!
-    @IBOutlet weak var loadCircle: NSProgressIndicator!
     @IBOutlet weak var windowListView: NSTableView!
     
     // properties
@@ -23,7 +20,6 @@ class PreferencesViewController: NSViewController {
     
     private var currentVisibility: Bool = true
     private var currentContributionWindows: [ContributionWindow] = []
-    private var currentSelectedWindow: ContributionWindow?
     
     var isVisible: Bool = false
     
@@ -34,11 +30,11 @@ class PreferencesViewController: NSViewController {
         
         // windowListView初期化
         self.windowListView.dataSource = self
+        
     }
     
     override func viewWillAppear() {
         self.view.window?.delegate = self
-        loadCircle.isHidden = true
         
         // 現在アクティブなウィンドウのリストを表示
         updateWindowListView()
@@ -68,56 +64,14 @@ class PreferencesViewController: NSViewController {
 }
 
 // UIアクション
-extension PreferencesViewController {
-    // ユーザ名フィールドに入力があったとき
-    @IBAction func onChangeUsernameField(_ sender: NSTextField) {
-        // 入力値を取得し、編集対象のconfigと違うならフェッチしてみる
-        let newName = sender.stringValue
-        
-        if(newName != currentSelectedWindow?.getContributionConfig()?.userName){
-            fetchStatLabel.stringValue = "Fetching..."
-            loadCircle.startAnimation(nil)
-            loadCircle.isHidden = false
-
-            let parser = ContributionXMLParser(userName: newName)
-            do {
-                try parser?.fetchContributions(completion: { (contributions) in
-                    // 成功したら新しいConfigを生成し
-                    let newConfig = ContributionConfig(userName: newName, lastFetchDate: Date(), contributions: contributions)
-
-                    // 対象のウィンドウにConfigに乗っけて通知
-                    let postObject = (self.currentSelectedWindow?.windowIdentifier, newConfig)
-                    NotificationCenter.default.post(name: .kConfigModifiedNotification, object: postObject)
-                    
-                    // んでUIを更新
-                    DispatchQueue.main.async {
-                        self.loadCircle.stopAnimation(nil)
-                        self.loadCircle.isHidden = true
-                        self.fetchStatLabel.stringValue = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .medium)
-                        self.updateWindowListView()
-                    }
-                })
-            } catch {
-                fetchStatLabel.stringValue = "Failed! Please check if you typed valid name."
-                loadCircle.stopAnimation(nil)
-                loadCircle.isHidden = true
-                return
-            }
-        }
-    }
+extension WindowListViewController {
     
     // ウィンドウリストの項目が選択されたとき
     @IBAction func didSelectRowAt(_ sender: NSTableView){
         let selectedRowIndex = sender.selectedRow
         guard selectedRowIndex != -1 else {return}
         
-        // 編集対象を選択した項目のconfigに変更
-        self.currentSelectedWindow = self.currentContributionWindows[selectedRowIndex]
-
-        // 右ペインの内容を更新
-        guard let selectedConfig = currentSelectedWindow?.getContributionConfig() else {return}
-        self.usernameField.stringValue = selectedConfig.userName
-        self.fetchStatLabel.stringValue = DateFormatter.localizedString(from: selectedConfig.lastFetchDate, dateStyle: .short, timeStyle: .medium)
+        
     }
     
     // ウィンドウ追加・削除ボタン
@@ -149,7 +103,7 @@ extension PreferencesViewController {
 }
 
 // TableViewDataSource
-extension PreferencesViewController: NSTableViewDataSource {
+extension WindowListViewController: NSTableViewDataSource {
     
     // セル数
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -164,7 +118,7 @@ extension PreferencesViewController: NSTableViewDataSource {
 }
 
 // NSWindowDelegate
-extension PreferencesViewController: NSWindowDelegate {
+extension WindowListViewController: NSWindowDelegate {
     
     func windowWillClose(_ notification: Notification) {
         // ウィンドウを戻し、configを保存
