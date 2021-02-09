@@ -17,6 +17,7 @@ class ContributionViewController: NSViewController {
     @IBOutlet weak var usernameLabel: NSTextField!
     @IBOutlet weak var lastContributionCountLabel: NSTextField!
     @IBOutlet weak var lastContributionDateLabel: NSTextField!
+    @IBOutlet weak var iconImageView: NSImageView!
     
     // properties
     private let notificationCenter = NotificationCenter.default
@@ -85,7 +86,11 @@ class ContributionViewController: NSViewController {
             lastContributionDateLabel.stringValue = DateFormatter.localizedString(from: lastContribution.date, dateStyle: .short, timeStyle: .none)
             lastContributionCountLabel.stringValue = String(lastContribution.contributionCount)
         }
+        
         let userName = config.userName
+        if let iconImageData = try? Data(contentsOf: URL(string: "https://github.com/\(userName).png")!){
+            self.iconImageView.image = NSImage(data: iconImageData)
+        }
         self.view.window?.title = "\(userName)'s Contribution Graph"
         collectionView.reloadData()
     }

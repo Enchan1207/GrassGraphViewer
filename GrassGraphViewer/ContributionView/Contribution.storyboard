@@ -139,6 +139,7 @@
                         <outlet property="backgroundView" destination="Woz-Si-Zqs" id="1MT-W2-Cr5"/>
                         <outlet property="collectionView" destination="Iti-GV-nfN" id="EzV-ld-umE"/>
                         <outlet property="flowLayout" destination="Hf0-Oa-TE4" id="nQq-D2-5jR"/>
+                        <outlet property="iconImageView" destination="JPY-Ww-SzZ" id="twa-oS-aBA"/>
                         <outlet property="lastContributionCountLabel" destination="gA5-dH-HF3" id="TCY-ZG-heD"/>
                         <outlet property="lastContributionDateLabel" destination="wv0-0o-4it" id="o0o-4d-0Qw"/>
                         <outlet property="scrollView" destination="puI-b3-nbO" id="TKM-vC-MpC"/>
