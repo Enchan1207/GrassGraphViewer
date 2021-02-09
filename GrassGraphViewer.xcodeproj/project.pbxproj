@@ -17,6 +17,7 @@
 		9E709A7725D11BCC0083B59D /* NSColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E709A7625D11BCC0083B59D /* NSColorExt.swift */; };
 		9E709A7C25D15EEE0083B59D /* NSColorExtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E709A7B25D15EEE0083B59D /* NSColorExtTests.swift */; };
 		9E709A8625D2097F0083B59D /* ObserverPatternProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E709A8525D2097F0083B59D /* ObserverPatternProtocol.swift */; };
+		9E709ACC25D26FC90083B59D /* ContributionBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E709ACB25D26FC90083B59D /* ContributionBackgroundView.swift */; };
 		9E9FD30825C79DFE0053DC25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD30725C79DFE0053DC25 /* AppDelegate.swift */; };
 		9E9FD30A25C79DFE0053DC25 /* ContributionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD30925C79DFE0053DC25 /* ContributionViewController.swift */; };
 		9E9FD30C25C79E000053DC25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD30B25C79E000053DC25 /* Assets.xcassets */; };
@@ -63,6 +64,7 @@
 		9E709A7625D11BCC0083B59D /* NSColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColorExt.swift; sourceTree = "<group>"; };
 		9E709A7B25D15EEE0083B59D /* NSColorExtTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColorExtTests.swift; sourceTree = "<group>"; };
 		9E709A8525D2097F0083B59D /* ObserverPatternProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverPatternProtocol.swift; sourceTree = "<group>"; };
+		9E709ACB25D26FC90083B59D /* ContributionBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionBackgroundView.swift; sourceTree = "<group>"; };
 		9E9FD30425C79DFE0053DC25 /* GrassGraphViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrassGraphViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E9FD30725C79DFE0053DC25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E9FD30925C79DFE0053DC25 /* ContributionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 			children = (
 				9E23920B25CCC83C0080E6AD /* ContributionWindow.swift */,
 				9E9FD30925C79DFE0053DC25 /* ContributionViewController.swift */,
+				9E709ACB25D26FC90083B59D /* ContributionBackgroundView.swift */,
 				9E9FD34925C7BFAC0053DC25 /* GrassCell.swift */,
 				9E9FD34A25C7BFAC0053DC25 /* GrassCell.xib */,
 				9E9FD52625CBDF9C0053DC25 /* Contribution.storyboard */,
@@ -348,6 +351,7 @@
 				9E21842625CD009A003A725A /* WindowManager.swift in Sources */,
 				9E7099D825CD10810083B59D /* PreferencesCutsomView.swift in Sources */,
 				9E9FD34B25C7BFAC0053DC25 /* GrassCell.swift in Sources */,
+				9E709ACC25D26FC90083B59D /* ContributionBackgroundView.swift in Sources */,
 				9E709A5E25D0F7420083B59D /* PreferenceSplitViewController.swift in Sources */,
 				9E9FD50725CBBAFE0053DC25 /* ContributionInfo.swift in Sources */,
 				9E9FD4B325CAD5D90053DC25 /* WindowListViewController.swift in Sources */,

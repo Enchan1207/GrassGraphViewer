@@ -76,6 +76,11 @@ class ContributionViewController: NSViewController {
         flowLayout.minimumInteritemSpacing = 2
         flowLayout.scrollDirection = .horizontal
         flowLayout.itemSize = NSSize(width: 11, height: 11)
+        
+        //
+        iconImageView.wantsLayer = true
+        iconImageView.layer?.cornerRadius = 5
+        iconImageView.layer?.masksToBounds = true
     }
     
     // configをもとにUI更新

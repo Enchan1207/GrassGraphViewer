@@ -21,6 +21,7 @@ class ContributionWindow: NSWindow{
         super.init(contentRect: contentRect, styleMask: styleMask, backing: backingType, defer: false)
         
         // ウィンドウ表示モードに依存しない設定はここでやっちゃう
+        self.isMovableByWindowBackground = true
         self.contentViewController = contentViewController
         self.tabbingMode = .disallowed
         self.isRestorable = false
@@ -56,11 +57,7 @@ class ContributionWindow: NSWindow{
         self.isMovable = !isHiddenMode
         self.titlebarAppearsTransparent = isHiddenMode
         self.titleVisibility = isHiddenMode ? .hidden : .visible
-        if(isHiddenMode){
-            self.styleMask.remove(.titled)
-        }else{
-            self.styleMask.insert(.titled)
-        }
+        self.styleMask.remove(.titled)
         self.ignoresMouseEvents = isHiddenMode
         
         // ウィンドウ表示位置(z軸)設定

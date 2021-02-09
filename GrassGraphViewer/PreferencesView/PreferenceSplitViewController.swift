@@ -15,6 +15,7 @@ class PreferenceSplitViewController: NSSplitViewController, Subject {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
     }
     

@@ -12,6 +12,12 @@ import Cocoa
     @IBInspectable var borderWidth: CGFloat = 0
     @IBInspectable var borderColor: NSColor = .clear
     
+    override var mouseDownCanMoveWindow: Bool{
+        get{
+            return true
+        }
+    }
+    
     override var wantsLayer: Bool {
         get{return true}
         set{}
