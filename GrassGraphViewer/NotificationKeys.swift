@@ -10,4 +10,5 @@ import Foundation
 extension Notification.Name {
     public static let kWindowVisibilityModifiedNotification = Notification.Name("kWindowVisibilityModifiedNotification")
     public static let kConfigModifiedNotification = Notification.Name("kConfigModifiedNotification")
+    public static let kContributionUpdateRequiredNotification =  Notification.Name("kContributionUpdateRequiredNotification")
 }

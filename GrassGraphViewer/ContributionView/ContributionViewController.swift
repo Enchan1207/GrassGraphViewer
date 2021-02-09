@@ -31,9 +31,10 @@ class ContributionViewController: NSViewController {
         // UI初期設定
         setupContributionUI()
         
-        // config変更通知を受け取る
+        // 通知を受け取る
         notificationCenter.addObserver(self, selector: #selector(onModifyConfig(_:)), name: .kConfigModifiedNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(onModifyVisibility(_:)), name: .kWindowVisibilityModifiedNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(onUpdateView(_:)), name: .kContributionUpdateRequiredNotification, object: nil)
     }
     
     override func viewWillAppear() {
@@ -134,6 +135,13 @@ extension ContributionViewController {
         (self.view.window as? ContributionWindow)?.setDisplayMode(visibility ? .Foreground : .Background)
         updateContributionUI()
     }
+    
+    // View更新通知を受け取ったとき
+    @objc func onUpdateView(_ notification: Notification){
+        self.updateContributionGraph()
+        self.config?.lastFetchDate = Date()
+    }
+    
 }
 
 // CollectionViewDataSource

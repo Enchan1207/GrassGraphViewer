@@ -13,6 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     private let windowManager = WindowManager()
     private var preferencesWindowController: NSWindowController!
+    private var updateTimer: Timer?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
@@ -25,10 +26,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // ウィンドウマネージャから構成を復元してウィンドウ表示
         windowManager.restoreWindowConfigurations()
         windowManager.showStoredWindows()
+        
+        // タイマー開始
+        self.updateTimer = Timer.scheduledTimer(timeInterval: 3600, target: self, selector: #selector(timerUpdate), userInfo: nil, repeats: true)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        updateTimer?.invalidate()
+    }
+    
+    @objc func timerUpdate(){
+        NotificationCenter.default.post(name: .kContributionUpdateRequiredNotification, object: nil)
     }
     
     // 環境設定ビューを用意
