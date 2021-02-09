@@ -7,7 +7,9 @@
 
 import Cocoa
 
-class WindowDetailsViewController: NSViewController{
+class WindowDetailsViewController: NSViewController, Observer{
+    var observerID: String = NSUUID().uuidString
+    
     // UI部品
     @IBOutlet weak var usernameField: NSTextField!
     @IBOutlet weak var fetchStatLabel: NSTextField!
@@ -18,21 +20,36 @@ class WindowDetailsViewController: NSViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // SplitViewControllerの持つmodelにObserverを登録
+        if var parentVC = parent as? PreferenceSplitViewController {
+            parentVC.addObserver(self)
+        }
     }
     
     override func viewWillAppear() {
         loadCircle.isHidden = true
     }
     
-    
-    @objc func onUpdateRequired(){
-        // 編集対象を選択した項目のconfigに変更
-//        self.currentSelectedWindow = self.currentContributionWindows[selectedRowIndex]
-//
-//        // 右ペインの内容を更新
-//        guard let selectedConfig = currentSelectedWindow?.getContributionConfig() else {return}
-//        self.usernameField.stringValue = selectedConfig.userName
-//        self.fetchStatLabel.stringValue = DateFormatter.localizedString(from: selectedConfig.lastFetchDate, dateStyle: .short, timeStyle: .medium)
+    deinit {
+        // 購読解除
+        if var parentVC = parent as? PreferenceSplitViewController {
+            parentVC.removeObserver(self)
+        }
+    }
+
+}
+
+// Observer
+extension WindowDetailsViewController {
+    func update(_ object: Any) {
+        // ContributionWindowにキャスト可能なら更新
+        if let window = object as? ContributionWindow {
+            self.currentSelectedWindow = window
+
+            guard let selectedConfig = currentSelectedWindow?.getContributionConfig() else {return}
+            self.usernameField.stringValue = selectedConfig.userName
+            self.fetchStatLabel.stringValue = DateFormatter.localizedString(from: selectedConfig.lastFetchDate, dateStyle: .short, timeStyle: .medium)
+        }
     }
 }
 

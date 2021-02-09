@@ -7,7 +7,8 @@
 
 import Cocoa
 
-class WindowListViewController: NSViewController {
+class WindowListViewController: NSViewController, Observer{
+    var observerID: String = NSUUID().uuidString
 
     // UI部品
     @IBOutlet weak var windowListView: NSTableView!
@@ -21,12 +22,15 @@ class WindowListViewController: NSViewController {
     private var currentVisibility: Bool = true
     private var currentContributionWindows: [ContributionWindow] = []
     
-    var isVisible: Bool = false
-    
     //* VC lifecycle *//
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // SplitViewControllerの持つmodelにObserverを登録
+        if var parentVC = parent as? PreferenceSplitViewController {
+            parentVC.addObserver(self)
+        }
         
         // windowListView初期化
         self.windowListView.dataSource = self
@@ -46,8 +50,13 @@ class WindowListViewController: NSViewController {
     }
     
     override func viewWillDisappear() {
-        if(isVisible){
-            updateConfigurations()
+        updateConfigurations()
+    }
+    
+    deinit {
+        // 購読解除
+        if var parentVC = parent as? PreferenceSplitViewController {
+            parentVC.removeObserver(self)
         }
     }
     
@@ -63,6 +72,17 @@ class WindowListViewController: NSViewController {
     }
 }
 
+// Observer
+extension WindowListViewController{
+    func update(_ object: Any) {
+        // [ContributionWindow]にキャスト可能なら更新
+        if let windows = object as? [ContributionWindow]{
+            self.currentContributionWindows = windows
+            self.windowListView.reloadData()
+        }
+    }
+}
+
 // UIアクション
 extension WindowListViewController {
     
@@ -71,7 +91,9 @@ extension WindowListViewController {
         let selectedRowIndex = sender.selectedRow
         guard selectedRowIndex != -1 else {return}
         
-        
+        if let parentVC = parent as? PreferenceSplitViewController {
+            parentVC.windowDidSelect(selectedRowIndex)
+        }
     }
     
     // ウィンドウ追加・削除ボタン
@@ -82,16 +104,17 @@ extension WindowListViewController {
         
         // ウィンドウ追加
         case 0:
-            let newConfig = ContributionConfig(userName: "User", lastFetchDate: Date(), contributions: [])
-            let newWindow = windowManager.generateContributionWindow(config: newConfig, displayMode: .Foreground)
-            let windowController = NSWindowController(window: newWindow)
-            windowController.showWindow(self)
-
+            if let parentVC = parent as? PreferenceSplitViewController {
+                parentVC.windowAddRequired()
+            }
+            
         // ウィンドウ削除
         case 1:
             let selectedRow = windowListView.selectedRow
             if selectedRow >= 0{
-                self.currentContributionWindows[selectedRow].close()
+                if let parentVC = parent as? PreferenceSplitViewController {
+                    parentVC.windowRemoveRequired(selectedRow)
+                }
             }
             
         default:
@@ -120,6 +143,7 @@ extension WindowListViewController: NSTableViewDataSource {
 // NSWindowDelegate
 extension WindowListViewController: NSWindowDelegate {
     
+    // 設定画面を閉じる時
     func windowWillClose(_ notification: Notification) {
         // ウィンドウを戻し、configを保存
         notificationCenter.post(name: .kWindowVisibilityModifiedNotification, object: false)

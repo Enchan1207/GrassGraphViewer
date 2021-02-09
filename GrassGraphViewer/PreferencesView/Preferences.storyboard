@@ -85,6 +85,9 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         </tableColumn>
                                                     </tableColumns>
+                                                    <connections>
+                                                        <action selector="didSelectRowAt:" target="iJW-rQ-vwQ" id="P9M-oN-f8J"/>
+                                                    </connections>
                                                 </tableView>
                                             </subviews>
                                         </clipView>

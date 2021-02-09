@@ -17,6 +17,8 @@
 		9E709A5E25D0F7420083B59D /* PreferenceSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E709A5D25D0F7420083B59D /* PreferenceSplitViewController.swift */; };
 		9E709A7725D11BCC0083B59D /* NSColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E709A7625D11BCC0083B59D /* NSColorExt.swift */; };
 		9E709A7C25D15EEE0083B59D /* NSColorExtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E709A7B25D15EEE0083B59D /* NSColorExtTests.swift */; };
+		9E709A8125D207BD0083B59D /* PreferencesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E709A8025D207BD0083B59D /* PreferencesModel.swift */; };
+		9E709A8625D2097F0083B59D /* ObserverPatternProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E709A8525D2097F0083B59D /* ObserverPatternProtocol.swift */; };
 		9E9FD30825C79DFE0053DC25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD30725C79DFE0053DC25 /* AppDelegate.swift */; };
 		9E9FD30A25C79DFE0053DC25 /* ContributionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9FD30925C79DFE0053DC25 /* ContributionViewController.swift */; };
 		9E9FD30C25C79E000053DC25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E9FD30B25C79E000053DC25 /* Assets.xcassets */; };
@@ -63,6 +65,8 @@
 		9E709A5D25D0F7420083B59D /* PreferenceSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSplitViewController.swift; sourceTree = "<group>"; };
 		9E709A7625D11BCC0083B59D /* NSColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColorExt.swift; sourceTree = "<group>"; };
 		9E709A7B25D15EEE0083B59D /* NSColorExtTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColorExtTests.swift; sourceTree = "<group>"; };
+		9E709A8025D207BD0083B59D /* PreferencesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesModel.swift; sourceTree = "<group>"; };
+		9E709A8525D2097F0083B59D /* ObserverPatternProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverPatternProtocol.swift; sourceTree = "<group>"; };
 		9E9FD30425C79DFE0053DC25 /* GrassGraphViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrassGraphViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E9FD30725C79DFE0053DC25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E9FD30925C79DFE0053DC25 /* ContributionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionViewController.swift; sourceTree = "<group>"; };
@@ -188,10 +192,12 @@
 			isa = PBXGroup;
 			children = (
 				9E9FD4AD25CAC6600053DC25 /* Preferences.storyboard */,
+				9E7099D725CD10810083B59D /* PreferencesCutsomView.swift */,
+				9E709A5D25D0F7420083B59D /* PreferenceSplitViewController.swift */,
+				9E709A8025D207BD0083B59D /* PreferencesModel.swift */,
 				9E9FD4B225CAD5D90053DC25 /* WindowListViewController.swift */,
 				9E709A4425D008F70083B59D /* WindowDetailsViewController.swift */,
-				9E709A5D25D0F7420083B59D /* PreferenceSplitViewController.swift */,
-				9E7099D725CD10810083B59D /* PreferencesCutsomView.swift */,
+				9E709A8525D2097F0083B59D /* ObserverPatternProtocol.swift */,
 			);
 			path = PreferencesView;
 			sourceTree = "<group>";
@@ -342,6 +348,7 @@
 			files = (
 				9E9FD49E25C982E80053DC25 /* ContributionXMLParser.swift in Sources */,
 				9E7099F625CE38A30083B59D /* DateFormatUtil.swift in Sources */,
+				9E709A8625D2097F0083B59D /* ObserverPatternProtocol.swift in Sources */,
 				9E9FD30A25C79DFE0053DC25 /* ContributionViewController.swift in Sources */,
 				9E9FD53225CBE6340053DC25 /* UserDefaultsExt.swift in Sources */,
 				9E9FD30825C79DFE0053DC25 /* AppDelegate.swift in Sources */,
@@ -352,6 +359,7 @@
 				9E9FD50725CBBAFE0053DC25 /* ContributionInfo.swift in Sources */,
 				9E9FD4B325CAD5D90053DC25 /* WindowListViewController.swift in Sources */,
 				9E709A4525D008F70083B59D /* WindowDetailsViewController.swift in Sources */,
+				9E709A8125D207BD0083B59D /* PreferencesModel.swift in Sources */,
 				9E709A7725D11BCC0083B59D /* NSColorExt.swift in Sources */,
 				9E23920C25CCC83C0080E6AD /* ContributionWindow.swift in Sources */,
 				9E9FD54625CBF14A0053DC25 /* Configurations.swift in Sources */,

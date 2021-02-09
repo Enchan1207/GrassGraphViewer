@@ -22,7 +22,7 @@ extension Subject {
     }
     
     mutating func removeObserver(_ observer: Observer){
-        self.observers.removeAll{$0.id == observer.id}
+        self.observers.removeAll{$0.observerID == observer.observerID}
     }
     
     func notify(_ object: Any){
@@ -32,7 +32,7 @@ extension Subject {
 
 protocol Observer {
     
-    var id: String { get }
+    var observerID: String { get }
     
     func update(_ object: Any)
 }
